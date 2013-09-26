@@ -1,0 +1,20 @@
+if has("gui_running")
+    set guioptions-=T
+    colorscheme solarized
+    map <M-o> :CommandT<CR>
+    if has("win32")
+        set guifont=Consolas:h10:cANSI
+    else
+        if has("unix")
+            set guifont=Deja\ Vu\ Sans\ Mono\ 8
+        endif
+    endif
+endif
+
+if has("gui_macvim")
+    macm File.Open\.\.\. key=<nop>
+    macmenu &File.New\ Tab key=<nop>
+    map <D-o> :CommandT<CR>
+    set macmeta
+endif
+
