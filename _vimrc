@@ -31,11 +31,13 @@ Bundle "altercation/vim-colors-solarized"
 Bundle "kelan/gyp.vim"
 Bundle "godlygeek/tabular"
 Bundle "jnurmine/Zenburn.git"
+Bundle "tomasr/molokai"
 Bundle "sunnogo/vim-taghighlight"
 Bundle "SirVer/ultisnips"
 Bundle "tpope/vim-repeat"
 Bundle "Lokaltog/vim-powerline"
 Bundle "beyondmarc/glsl.vim"
+Bundle 'wting/rust.vim'
 
 set history=1024  " Lines of history
 filetype plugin on

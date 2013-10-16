@@ -1,12 +1,15 @@
 if has("gui_running")
+    set lines=80 columns=120
     set guioptions-=T
-    colorscheme solarized
+    "colorscheme solarized
+    let g:molokai_original=1
+    colorscheme molokai
     map <M-o> :CommandT<CR>
     if has("win32")
         set guifont=Consolas:h10:cANSI
     else
         if has("unix")
-            set guifont=Deja\ Vu\ Sans\ Mono\ 8
+            set guifont=Deja\ Vu\ Sans\ Mono\ 9
         endif
     endif
 endif
