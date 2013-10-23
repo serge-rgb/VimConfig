@@ -9,7 +9,7 @@ if has("gui_running")
         set guifont=Consolas:h10:cANSI
     else
         if has("unix")
-            set guifont=Deja\ Vu\ Sans\ Mono\ 9
+            set guifont=Deja\ Vu\ Sans\ Mono\ 10
         endif
     endif
 endif

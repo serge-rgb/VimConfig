@@ -23,6 +23,7 @@ Bundle "YankRing.vim"
 Bundle "majutsushi/tagbar"
 Bundle "kien/ctrlp.vim"
 Bundle "scrooloose/nerdcommenter"
+Bundle "scrooloose/nerdtree"
 "Bundle "scrooloose/syntastic"
 "Bundle "Valloric/YouCompleteMe"
 Bundle "vim-scripts/OmniCppComplete"
@@ -38,6 +39,7 @@ Bundle "tpope/vim-repeat"
 Bundle "Lokaltog/vim-powerline"
 Bundle "beyondmarc/glsl.vim"
 Bundle 'wting/rust.vim'
+Bundle "tpope/vim-markdown"
 
 set history=1024  " Lines of history
 filetype plugin on
@@ -91,10 +93,14 @@ set laststatus=2 "Always display status line
 noremap j gj
 noremap k gk
 
+"Auto-Pairs config
+let g:AutoPairsFlyMode=1
+
 noremap <C-t> :CtrlPBuffer<cr>
 inoremap <C-t> <esc>:CtrlPBuffer<cr>
 noremap <C-3> :CtrlPMRU<cr>
 noremap <C-3> <esc>:CtrlPMRU<cr>
+noremap <F2> :NERDTreeToggle<cr>
 
 let g:ctrlp_working_path_mode = 0
 
@@ -154,8 +160,22 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
+"tagbar rust support:
+let g:tagbar_type_rust = {
+    \ 'ctagstype' : 'rust',
+    \ 'kinds'     : [
+    \ 'f:function',
+    \ 'T:types',
+    \ 'm:modules',
+    \ 'c:consts',
+    \ 't:traits',
+    \ 'I:impls',
+    \ 'M:macros'
+    \ ]
+\ }
+
 map <f3> :TagbarToggle<CR>
-map <C-l> :TagbarOpen fj<CR>
+map <C-l> :TagbarOpen fj<CR>/\v
 "let g:tagbar_left=1  " Right works better...
 "map <f3> :TlistOpen<cr>
 "noremap <C-l> :TlistToggle<cr> "/
