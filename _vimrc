@@ -22,12 +22,12 @@ Bundle "YankRing.vim"
 
 Bundle "majutsushi/tagbar"
 Bundle "kien/ctrlp.vim"
-Bundle "scrooloose/nerdcommenter"
+Bundle "tpope/vim-commentary"
 Bundle "scrooloose/nerdtree"
-"Bundle "scrooloose/syntastic"
-"Bundle "Valloric/YouCompleteMe"
-Bundle "vim-scripts/OmniCppComplete"
-Bundle "vim-scripts/AutoComplPop"
+Bundle "scrooloose/syntastic"
+Bundle "Valloric/YouCompleteMe"
+" Bundle "vim-scripts/OmniCppComplete"
+" Bundle "vim-scripts/AutoComplPop"
 Bundle "altercation/vim-colors-solarized"
 Bundle "kelan/gyp.vim"
 Bundle "godlygeek/tabular"
@@ -40,6 +40,10 @@ Bundle "Lokaltog/vim-powerline"
 Bundle "beyondmarc/glsl.vim"
 Bundle 'wting/rust.vim'
 Bundle "tpope/vim-markdown"
+Bundle "tpope/vim-fugitive"
+" == Clojure stuff:
+Bundle "guns/vim-clojure-static"
+Bundle "tpope/vim-fireplace"
 
 set history=1024  " Lines of history
 filetype plugin on
