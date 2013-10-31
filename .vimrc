@@ -41,6 +41,7 @@ Bundle "beyondmarc/glsl.vim"
 Bundle 'wting/rust.vim'
 Bundle "tpope/vim-markdown"
 Bundle "tpope/vim-fugitive"
+Bundle "Blackrush/vim-gocode"
 " == Clojure stuff:
 Bundle "guns/vim-clojure-static"
 Bundle "tpope/vim-fireplace"
@@ -98,7 +99,7 @@ noremap j gj
 noremap k gk
 
 "Auto-Pairs config
-let g:AutoPairsFlyMode=1
+let g:AutoPairsFlyMode=0
 
 noremap <C-t> :CtrlPBuffer<cr>
 inoremap <C-t> <esc>:CtrlPBuffer<cr>
@@ -178,8 +179,38 @@ let g:tagbar_type_rust = {
     \ ]
 \ }
 
+" tagbar go support
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
+
+
 map <f3> :TagbarToggle<CR>
-map <C-l> :TagbarOpen fj<CR>/\v
+map <C-l> :TagbarOpen fj<CR>/
 "let g:tagbar_left=1  " Right works better...
 "map <f3> :TlistOpen<cr>
 "noremap <C-l> :TlistToggle<cr> "/
