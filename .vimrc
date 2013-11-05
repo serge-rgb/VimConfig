@@ -3,7 +3,6 @@ filetype on  " Yep..
 filetype off
 if has("win32")
     set rtp+=~/vimfiles/bundle/vundle
-    set backspace=2
 else
     if has("unix")
         set rtp+=~/.vim/bundle/vundle/
@@ -42,10 +41,13 @@ Bundle 'wting/rust.vim'
 Bundle "tpope/vim-markdown"
 Bundle "tpope/vim-fugitive"
 Bundle "Blackrush/vim-gocode"
+Bundle "Lokaltog/vim-easymotion"
+Bundle "daylerees/colour-schemes", { "rtp": "vim-themes/" }
 " == Clojure stuff:
 Bundle "guns/vim-clojure-static"
 Bundle "tpope/vim-fireplace"
 
+set backspace=2
 set history=1024  " Lines of history
 filetype plugin on
 filetype indent on
@@ -112,6 +114,11 @@ let g:ctrlp_working_path_mode = 0
 " Remapping for YankRing
 let g:yankring_replace_n_pkey = ",p"
 let g:yankring_replace_n_nkey = ",n"
+
+" Ultisnips with YouCompleteMe
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Better than esc.
 inoremap jj <esc>
