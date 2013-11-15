@@ -11,41 +11,45 @@ endif
 
 call vundle#rc()
 
-Bundle "gmarik/vundle"
+Bundle 'gmarik/vundle'
 
-" My bundles
-Bundle "a.vim"
-Bundle "Auto-Pairs"
-Bundle "surround.vim"
-Bundle "YankRing.vim"
+"==== Vim editing steroids
+Bundle 'Auto-Pairs'
+Bundle 'tpope/vim-commentary'
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-speeddating'
+Bundle 'surround.vim'
+Bundle 'godlygeek/tabular'
+Bundle 'sunnogo/vim-taghighlight'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'YankRing.vim'
 
-Bundle "majutsushi/tagbar"
-Bundle "kien/ctrlp.vim"
-Bundle "tpope/vim-commentary"
-Bundle "scrooloose/nerdtree"
+"==== Completion / IDE stuff
 " Bundle "scrooloose/syntastic"
 " Bundle "Valloric/YouCompleteMe"
-Bundle "vim-scripts/OmniCppComplete"
-Bundle "vim-scripts/AutoComplPop"
-Bundle "altercation/vim-colors-solarized"
-Bundle "kelan/gyp.vim"
-Bundle "godlygeek/tabular"
-Bundle "jnurmine/Zenburn.git"
-Bundle "tomasr/molokai"
-Bundle "sunnogo/vim-taghighlight"
-Bundle "SirVer/ultisnips"
-Bundle "tpope/vim-repeat"
-Bundle "Lokaltog/vim-powerline"
-Bundle "beyondmarc/glsl.vim"
+Bundle 'a.vim'
+Bundle 'vim-scripts/AutoComplPop'
+Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/OmniCppComplete'
+Bundle 'majutsushi/tagbar'
+Bundle 'SirVer/ultisnips'
+
+"==== Rainbows
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'daylerees/colour-schemes', { 'rtp': 'vim-themes/' }
+Bundle 'tomasr/molokai'
+Bundle 'jnurmine/Zenburn.git'
+
+"==== Random lang support
+Bundle 'Blackrush/vim-gocode'
+Bundle 'beyondmarc/glsl.vim'
+Bundle 'kelan/gyp.vim'
+Bundle 'tpope/vim-markdown'
 Bundle 'wting/rust.vim'
-Bundle "tpope/vim-markdown"
-Bundle "tpope/vim-fugitive"
-Bundle "Blackrush/vim-gocode"
-Bundle "Lokaltog/vim-easymotion"
-Bundle "daylerees/colour-schemes", { "rtp": "vim-themes/" }
-" == Clojure stuff:
-Bundle "guns/vim-clojure-static"
-Bundle "tpope/vim-fireplace"
+Bundle 'vim-scripts/slimv.vim'
 
 set backspace=2
 set history=1024  " Lines of history
@@ -245,11 +249,3 @@ EOF
 endfunction
 call SetDayColor()
 
-" List installed pathogen bundles
-function! ListBundles()
-python << EOF
-import glob
-for d in glob.glob("/Users/sglez/.vim/bundle/*"):
-    print d.split("/")[5]
-EOF
-endfunction
