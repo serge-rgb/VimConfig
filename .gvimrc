@@ -6,7 +6,8 @@ if has("gui_running")
     " Tagbar signature highliting sucks
     hi link TagbarSignature Statement
 
-    colorscheme Earthsong
+    colorscheme Gloom
+    " colorscheme Earthsong
     " colorscheme Goldfish
 
     map <M-o> :CommandT<CR>
@@ -14,7 +15,8 @@ if has("gui_running")
         set guifont=Consolas:h10:cANSI
     else
         if has("unix")
-            set guifont=Deja\ Vu\ Sans\ Mono\ 9
+            " set guifont=Deja\ Vu\ Sans\ Mono\ 9
+            set guifont=Ubuntu\ Mono\ 9
         endif
     endif
 endif

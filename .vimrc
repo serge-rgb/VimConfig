@@ -72,10 +72,17 @@ set nobackup
 set nowritebackup
 
 set wildmenu
-set wrap
 set number
 " Very magic search
 nnoremap / /\v
+
+function! LongLines()
+    set wrap
+    set linebreak
+    set nolist
+    set textwidth=0
+    set wrapmargin=0
+endfunction
 
 " Highlight current line.
 set cursorline
