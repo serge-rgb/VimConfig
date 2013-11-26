@@ -18,7 +18,7 @@ if has("gui_running")
             if has("macunix")
                 set guifont=Monaco:h11
             else
-                set guifont=Deja\ Vu\ Sans\ Mono\ 9
+                set guifont=Ubuntu\ Mono\ 9
             endif
         endif
     endif
