@@ -24,12 +24,15 @@ Bundle 'godlygeek/tabular'
 Bundle 'sunnogo/vim-taghighlight'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'YankRing.vim'
+" Bundle 'Shougo/vimproc'
+" Bundle 'Shougo/unite.vim'
 
 "==== Completion / IDE stuff
-" Bundle "scrooloose/syntastic"
+Bundle "scrooloose/syntastic"
 " Bundle "Valloric/YouCompleteMe"
 Bundle 'a.vim'
-Bundle 'vim-scripts/AutoComplPop'
+" Bundle 'vim-scripts/AutoComplPop'
+Bundle 'Shougo/neocomplcache.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
@@ -50,11 +53,21 @@ Bundle 'kelan/gyp.vim'
 Bundle 'tpope/vim-markdown'
 Bundle 'wting/rust.vim'
 Bundle 'vim-scripts/slimv.vim'
+Bundle 'jpalardy/vim-slime'
+Bundle 'bitc/vim-hdevtools'
+Bundle 'lukerandall/haskellmode-vim'
 
 set backspace=2
 set history=1024  " Lines of history
 filetype plugin on
 filetype indent on
+
+" No bells
+"
+set noerrorbells
+set novisualbell
+set t_vb=
+autocmd! GUIEnter * set vb t_vb=
 
 syntax on
 
@@ -129,9 +142,10 @@ inoremap jj <esc>
 " Go to the end while in insert mode
 inoremap ,, <esc>A
 " Saving
-map <leader>s :w<cr>
 nmap <C-s> :w<cr>
 inoremap <C-s> <esc>:w<cr>
+
+" Swap Header/Impl
 noremap <C-Tab> :A<cr>
 inoremap <C-Tab> <esc>:A<cr>
 
@@ -142,6 +156,19 @@ noremap <leader>e ]}
 nmap <leader>d :cd %:p:h<cr>
 
 let g:Powerline_symbols="fancy"
+
+
+" auto-complete
+let g:neocomplcache_enable_at_startup = 1
+let g:neocomplcache_enable_smart_case = 1
+let g:neocomplcache_enable_auto_select = 1
+" Enable heavy omni completion.
+if !exists('g:neocomplcache_omni_patterns')
+  let g:neocomplcache_omni_patterns = {}
+endif
+let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+let g:neocomplcache_omni_patterns.go = '[^.[:digit:] *\t]\%(\.\)\|\a'
 
 "Make
 map <leader>n :cn<cr>
@@ -176,6 +203,13 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
+" ----- Haskell
+au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
+au FileType haskell nnoremap <buffer> <silent> <F8> :HdevtoolsClear<CR>
+au FileType haskell nnoremap <buffer> <silent> <F9> :HdevtoolsInfo<CR>
+let g:slime_target = "tmux"
+let g:slime_paste_file = tempname()
+
 "tagbar rust support:
 let g:tagbar_type_rust = {
     \ 'ctagstype' : 'rust',
@@ -190,7 +224,9 @@ let g:tagbar_type_rust = {
     \ ]
 \ }
 
-" tagbar go support
+" go support
+autocmd FileType go setlocal omnifunc=gocomplete#Complete
+
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
