@@ -53,9 +53,11 @@ Bundle 'kelan/gyp.vim'
 Bundle 'tpope/vim-markdown'
 Bundle 'wting/rust.vim'
 Bundle 'vim-scripts/slimv.vim'
-Bundle 'jpalardy/vim-slime'
+" Bundle 'jpalardy/vim-slime'  == commented out for python screen hack
 Bundle 'bitc/vim-hdevtools'
 Bundle 'lukerandall/haskellmode-vim'
+Bundle 'klen/python-mode'
+let g:pymode_folding = 0
 
 set backspace=2
 set history=1024  " Lines of history
@@ -96,6 +98,15 @@ function! LongLines()
     set textwidth=0
     set wrapmargin=0
 endfunction
+
+func! OpenLog()
+    e ~/Dropbox/log.txt
+endf
+
+func! LoadRC()
+    so ~/.vimrc
+    so ~/.gvimrc
+endf
 
 " Highlight current line.
 set cursorline
@@ -210,12 +221,14 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
+" ----- Python
+
+au FileType python nnoremap <buffer> <silent> <leader> c :HdevtoolsInfo<CR>
+
 " ----- Haskell
 au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F8> :HdevtoolsClear<CR>
 au FileType haskell nnoremap <buffer> <silent> <F9> :HdevtoolsInfo<CR>
-let g:slime_target = "tmux"
-let g:slime_paste_file = tempname()
 
 "tagbar rust support:
 let g:tagbar_type_rust = {
@@ -292,3 +305,113 @@ EOF
 endfunction
 call SetDayColor()
 
+"========= Mostly copyied from pymode.      ====  Select_line_or_func()
+fun! s:BlockStart(lnum, ...) "{{{
+    let pattern = a:0 ? a:1 : '^\s*\(@\|class\s.*:\|def\s\)'
+    let lnum = a:lnum + 1
+    let indent = 100
+    while lnum
+        let lnum = prevnonblank(lnum - 1)
+        let test = indent(lnum)
+        let line = getline(lnum)
+        if line =~ '^\s*#' " Skip comments
+            continue
+        elseif !test " Zero-level regular line
+            return lnum
+        elseif test >= indent " Skip deeper or equal lines
+            continue
+        " Indent is strictly less at this point: check for def/class
+        elseif line =~ pattern && line !~ '^\s*@'
+            return lnum
+        endif
+        let indent = indent(lnum)
+    endwhile
+    return 0
+endfunction "}}}
+
+
+fun! s:BlockEnd(lnum, ...) "{{{
+    let indent = a:0 ? a:1 : indent(a:lnum)
+    let lnum = a:lnum
+    while lnum
+        let lnum = nextnonblank(lnum + 1)
+        if getline(lnum) =~ '^\s*#' | continue
+        elseif lnum && indent(lnum) <= indent
+            return lnum - 1
+        endif
+    endwhile
+    return line('$')
+endfunction
+
+fun! g:pos_le(pos1, pos2) "{{{
+    return ((a:pos1[0] < a:pos2[0]) || (a:pos1[0] == a:pos2[0] && a:pos1[1] <= a:pos2[1]))
+endfunction "}}}
+
+fun! g:select(pattern, inner) "{{{
+    let cnt = v:count1 - 1
+    let orig = getpos('.')[1:2]
+    let snum = s:BlockStart(orig[0], a:pattern)
+    if getline(snum) !~ a:pattern
+        return 0
+    endif
+    let enum = s:BlockEnd(snum, indent(snum))
+    while cnt
+        let lnum = search(a:pattern, 'nW')
+        if lnum
+            let enum = s:BlockEnd(lnum, indent(lnum))
+            call cursor(enum, 1)
+        endif
+        let cnt = cnt - 1
+    endwhile
+    if g:pos_le([snum, 0], orig) && g:pos_le(orig, [enum, 1])
+        if a:inner
+            let snum = snum + 1
+            let enum = prevnonblank(enum)
+        endif
+
+        call cursor(snum, 1)
+        normal! v
+        call cursor(enum, len(getline(enum)))
+    endif
+endfunction
+
+function! Select_Line_or_Func()
+    call g:select('^\s*def\s', 0)
+    if mode() == "v"
+        echo("ok")
+    else
+        exe "normal! V"
+    endif
+endfunction
+
+"  Send to GNU screen for python
+"""""""""""""""""""""""""""""""":""""""""""""""""""""""""""""
+function! Send_to_Screen(text)
+    if !exists("g:screen_sessionname") || !exists("g:screen_windowname")
+        call Screen_Vars()
+    end
+    echo system("screen -S " . g:screen_sessionname . " -p " . g:screen_windowname . " -X stuff '" . substitute(a:text, "'", "'\\\\''", 'g') . "'")
+endfunction
+
+function! Screen_Session_Names(A,L,P)
+  return system("screen -ls | awk '/Attached/ {print $1}'")
+endfunction
+
+function! Screen_Vars()
+  if !exists("g:screen_sessionname") || !exists("g:screen_windowname")
+    let g:screen_sessionname = ""
+    let g:screen_windowname = "0"
+  end
+
+  let g:screen_sessionname = input("session name: ", "", "custom,Screen_Session_Names")
+  let g:screen_windowname = input("window name: ", g:screen_windowname)
+endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Prn()
+    echo @r
+endfunction
+vmap <C-c><C-c> "ry :call Send_to_Screen(@r)<CR>
+nmap <C-c><C-c> :call Select_Line_or_Func()<cr><C-c><C-c>
+
+nmap <C-c>v :call Screen_Vars()<CR>
