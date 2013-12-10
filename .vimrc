@@ -293,18 +293,22 @@ map <C-l> :TagbarOpen fj<CR>/
 "let Tlist_WinHeight = 80
 
 " Change background color depending on time
+let g:bg='nothing'
 function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
 if hour >= 18 or hour < 8:
-    vim.command("set background=dark\n")
+    vim.command("if g:bg!='dark'\n set background=dark\nlet g:bg='dark'\nendif\n")
 else:
-    vim.command("set background=light\n")
+    vim.command("if g:bg!='light'\n set background=light\nlet g:bg='light'\nendif\n")
 EOF
 endfunction
 
-" Time trick
+" Call once at startup
+call SetDayColor()
+
+" Call periodically
 autocmd CursorHold * call Timer()
 function! Timer()
     call feedkeys("f\e") " K_IGNORE
