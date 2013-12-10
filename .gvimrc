@@ -6,7 +6,8 @@ if has("gui_running")
     " Tagbar signature highliting sucks
     hi link TagbarSignature Statement
 
-    colorscheme Gloom
+    colorscheme solarized
+    " colorscheme Gloom
     " colorscheme Earthsong
     " colorscheme Goldfish
 
