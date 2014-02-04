@@ -39,14 +39,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/OmniCppComplete'
 Bundle 'majutsushi/tagbar'
 Bundle 'SirVer/ultisnips'
-
-"==== Rainbows
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'daylerees/colour-schemes', { 'rtp': 'vim-themes/' }
-Bundle 'tomasr/molokai'
-Bundle 'jnurmine/Zenburn.git'
-
-"==== Random lang support
+"... Random lang support
 Bundle 'Blackrush/vim-gocode'
 Bundle 'beyondmarc/glsl.vim'
 Bundle 'kelan/gyp.vim'
@@ -56,8 +49,15 @@ Bundle 'vim-scripts/slimv.vim'
 " Bundle 'jpalardy/vim-slime'  == commented out for python screen hack
 Bundle 'bitc/vim-hdevtools'
 Bundle 'lukerandall/haskellmode-vim'
-" Bundle 'klen/python-mode'
+Bundle 'klen/python-mode'
 Bundle 'jmcantrell/vim-virtualenv'
+
+"==== Rainbows
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'daylerees/colour-schemes', { 'rtp': 'vim-themes/' }
+Bundle 'tomasr/molokai'
+Bundle 'jnurmine/Zenburn.git'
+
 
 set backspace=2
 set history=1024  " Lines of history
@@ -223,6 +223,7 @@ endfunction
 
 " ----- Python
 
+let g:pymode_rope_lookup_project=0
 let g:virtualenv_directory="~"
 
 " ----- Haskell
