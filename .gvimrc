@@ -1,7 +1,7 @@
 if has("gui_running")
     set lines=80 columns=120
     set guioptions-=T
-    " let g:molokai_original=1
+    let g:molokai_original=1
 
     " Tagbar signature highliting sucks
     hi link TagbarSignature Statement
@@ -10,7 +10,8 @@ if has("gui_running")
     " colorscheme Gloom
     " colorscheme Earthsong
     " colorscheme Goldfish
-    colorscheme zenburn
+    " colorscheme zenburn
+    colorscheme molokai
 
     map <M-o> :CommandT<CR>
     if has("win32")
