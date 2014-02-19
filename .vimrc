@@ -21,7 +21,7 @@ Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-speeddating'
 Bundle 'surround.vim'
 Bundle 'godlygeek/tabular'
-Bundle 'sunnogo/vim-taghighlight'
+Bundle 'TagHighlight'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'YankRing.vim'
 " Bundle 'Shougo/vimproc'
@@ -37,6 +37,10 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/OmniCppComplete'
+" Bundle "Rip-Rip/clang_complete"
+" if has("macunix")
+"     let g:clang_library_path="/Users/sglez/src/llvm-build/Release/lib/"
+" endif
 Bundle 'majutsushi/tagbar'
 Bundle 'SirVer/ultisnips'
 "... Random lang support
@@ -202,7 +206,8 @@ endf
 func! UseGrep()
     set grepprg=grep\ -n\ $*\ /dev/null
 endf
-call UseGitGrep()
+" call UseGitGrep()
+set grepprg=ack
 
 " Add my tags
 set tags+=~/work/tags
@@ -223,8 +228,14 @@ endfunction
 
 " ----- Python
 
+let g:pymode_virtualenv = 1
+let g:pymode_motion = 1
+let g:pymode_folding = 0
 let g:pymode_rope_lookup_project=0
-let g:virtualenv_directory="~"
+let g:pymode_rope_goto_definition_cmd="vnew"
+let g:pymode_lint = 0
+let g:pymode_lint_on_write = 0
+let g:pymode_lint_on_fly = 0
 
 " ----- Haskell
 au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
