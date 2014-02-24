@@ -29,14 +29,14 @@ Bundle 'YankRing.vim'
 
 "==== Completion / IDE stuff
 Bundle "scrooloose/syntastic"
-" Bundle "Valloric/YouCompleteMe"
+Bundle "Valloric/YouCompleteMe"
 Bundle 'a.vim'
 " Bundle 'vim-scripts/AutoComplPop'
-Bundle 'Shougo/neocomplcache.vim'
+" Bundle 'Shougo/neocomplcache.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'scrooloose/nerdtree'
-Bundle 'vim-scripts/OmniCppComplete'
+" Bundle 'vim-scripts/OmniCppComplete'
 " Bundle "Rip-Rip/clang_complete"
 " if has("macunix")
 "     let g:clang_library_path="/Users/sglez/src/llvm-build/Release/lib/"
@@ -53,7 +53,7 @@ Bundle 'vim-scripts/slimv.vim'
 " Bundle 'jpalardy/vim-slime'  == commented out for python screen hack
 Bundle 'bitc/vim-hdevtools'
 Bundle 'lukerandall/haskellmode-vim'
-Bundle 'klen/python-mode'
+" Bundle 'klen/python-mode'
 Bundle 'jmcantrell/vim-virtualenv'
 
 "==== Rainbows
@@ -179,18 +179,18 @@ nmap <leader>d :cd %:p:h<cr>
 
 let g:Powerline_symbols="fancy"
 
-
 " auto-complete
-let g:neocomplcache_enable_at_startup = 1
-let g:neocomplcache_enable_smart_case = 1
-let g:neocomplcache_enable_auto_select = 1
-" Enable heavy omni completion.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
-endif
-let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-let g:neocomplcache_omni_patterns.go = '[^.[:digit:] *\t]\%(\.\)\|\a'
+
+" let g:neocomplcache_enable_at_startup = 1
+" let g:neocomplcache_enable_smart_case = 1
+" let g:neocomplcache_enable_auto_select = 1
+" " Enable heavy omni completion.
+" if !exists('g:neocomplcache_omni_patterns')
+"   let g:neocomplcache_omni_patterns = {}
+" endif
+" let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+" let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+" let g:neocomplcache_omni_patterns.go = '[^.[:digit:] *\t]\%(\.\)\|\a'
 
 "Make
 map <leader>n :cn<cr>
@@ -228,14 +228,14 @@ endfunction
 
 " ----- Python
 
-let g:pymode_virtualenv = 1
-let g:pymode_motion = 1
-let g:pymode_folding = 0
-let g:pymode_rope_lookup_project=0
-let g:pymode_rope_goto_definition_cmd="vnew"
-let g:pymode_lint = 0
-let g:pymode_lint_on_write = 0
-let g:pymode_lint_on_fly = 0
+" let g:pymode_virtualenv = 1
+" let g:pymode_motion = 1
+" let g:pymode_folding = 0
+" let g:pymode_rope_lookup_project=0
+" let g:pymode_rope_goto_definition_cmd="vnew"
+" let g:pymode_lint = 0
+" let g:pymode_lint_on_write = 0
+" let g:pymode_lint_on_fly = 0
 
 " ----- Haskell
 au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
