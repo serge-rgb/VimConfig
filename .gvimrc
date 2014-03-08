@@ -19,7 +19,7 @@ if has("gui_running")
     else
         if has("unix")
             if has("macunix")
-                set guifont=Monaco:h10
+                set guifont=Monaco:h11
             else
                 " set guifont=Ubuntu\ Mono\ 11
                 set guifont=DejaVu\ Sans\ Mono\ 9
@@ -32,6 +32,5 @@ if has("gui_macvim")
     macm File.Open\.\.\. key=<nop>
     macmenu &File.New\ Tab key=<nop>
     map <D-o> :CommandT<CR>
-    set macmeta
 endif
 

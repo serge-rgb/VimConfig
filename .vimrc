@@ -43,6 +43,8 @@ Bundle 'wting/rust.vim'
 Bundle 'vim-scripts/slimv.vim'
 Bundle 'bitc/vim-hdevtools'
 Bundle 'lukerandall/haskellmode-vim'
+"... Latex crap"
+Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex vim-latex-vim-latex'
 
 "==== Rainbows
 Bundle 'altercation/vim-colors-solarized'
@@ -169,7 +171,6 @@ inoremap <F4> <esc>:YcmCompleter GoToDefinition<cr>
 
 let g:Powerline_symbols="fancy"
 
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
 
 "Make
 map <leader>n :cn<cr>
@@ -204,7 +205,9 @@ au FileType qf call AdjustWindowHeight(3, 40)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-
+" ----- Python
+let g:ycm_path_to_python_interpreter = '/usr/bin/python'
+let g:syntastic_python_checkers = []
 " ----- Haskell
 au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F8> :HdevtoolsClear<CR>
