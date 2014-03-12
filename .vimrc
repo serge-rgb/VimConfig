@@ -261,5 +261,10 @@ let g:tagbar_type_go = {
 
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpen fj<CR>/
+
+" Personal log helper...
+au BufRead *.txt noremap <leader>t otask --- 0pom<esc>:Tabularize /---<cr>
+au BufRead *.txt noremap <leader>a :Tabularize /---<cr>
+
 "let g:tagbar_left=1  " Right works better...
 
