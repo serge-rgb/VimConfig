@@ -27,7 +27,8 @@ Bundle 'YankRing.vim'
 
 "==== Completion / IDE stuff
 Bundle "scrooloose/syntastic"
-Bundle "Valloric/YouCompleteMe"
+" Bundle "Valloric/YouCompleteMe"
+Bundle "Shougo/neocomplete"
 Bundle 'a.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
@@ -44,7 +45,7 @@ Bundle 'vim-scripts/slimv.vim'
 Bundle 'bitc/vim-hdevtools'
 Bundle 'lukerandall/haskellmode-vim'
 "... Latex crap"
-Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex vim-latex-vim-latex'
+Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 
 "==== Rainbows
 Bundle 'altercation/vim-colors-solarized'
@@ -97,7 +98,7 @@ endfunction
 func! OpenLog()
     e ~/Dropbox/log.txt
 endf
-au BufRead *.txt noremap <leader>t otask --- 0pom<esc>
+au BufRead *.txt noremap <leader>t o --- 0pom<esc>^hi
 au BufRead *.txt noremap <leader>a :Tabularize /---<cr>
 
 func! LoadRC()
@@ -230,9 +231,6 @@ let g:tagbar_type_rust = {
     \ ]
 \ }
 
-" go support
-autocmd FileType go setlocal omnifunc=gocomplete#Complete
-
 let g:tagbar_type_go = {
     \ 'ctagstype' : 'go',
     \ 'kinds'     : [
@@ -265,6 +263,75 @@ let g:tagbar_type_go = {
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpen fj<CR>/
 
+" =============================
+" neocomplete
+" =============================
 
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
+
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+let g:neocomplete#enable_auto_select = 1
+
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+autocmd FileType go setlocal omnifunc=go#complete#Complete
+autocmd FileType c,cpp setlocal omnifunc=ClangComplete
+
+au FileType c,cpp inoremap {<CR> {<CR>}<esc>O
+if !exists('g:neocomplete#force_omni_input_patterns')
+    let g:neocomplete#force_omni_input_patterns = {}
+endif
+let g:neocomplete#force_overwrite_completefunc = 1
+" ==== Autocomplete for everything but semicolon.
+let g:neocomplete#force_omni_input_patterns.c =
+            \ '\S\{3,}[^;]'
+let g:neocomplete#force_omni_input_patterns.cpp =
+            \ '\S\{3,}[^;]'
+" \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+let g:neocomplete#force_omni_input_patterns.objc =
+            \ '\S\{3,}[^;]'
+let g:neocomplete#force_omni_input_patterns.objcpp =
+            \ '\S\{3,}[^;]'
+let g:clang_complete_auto = 0
+let g:clang_auto_select = 0
+" let g:clang_use_library = 1
+" let g:clang_library_path = "$HOME/src/llvm_build/Release/lib"
 "let g:tagbar_left=1  " Right works better...
 
