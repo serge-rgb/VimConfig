@@ -106,6 +106,15 @@ func! LoadRC()
     so ~/.gvimrc
 endf
 
+func! IDEify()
+    set columns=260
+    set lines=100
+    vsplit
+    cope
+    TagbarToggle
+    execute "normal! \<C-w>="
+endf
+
 " Highlight current line.
 set cursorline
 
