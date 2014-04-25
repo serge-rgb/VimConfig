@@ -184,13 +184,14 @@ let g:Powerline_symbols="fancy"
 
 
 "Make
-map <leader>n :cn<cr>
 noremap <F5> :make<cr>
 inoremap <F5> <esc>:make<cr>
-noremap <F6> @e<cr>
-inoremap <F6> <esc>@e<cr>
-"set makeprg=make\ -j8
-set makeprg=ninja\ -C\ out/Debug\ -k\ 1
+noremap <F6> :cn<cr>
+inoremap <F6> <esc>:cn<cr>
+noremap <F7> :grep <C-r><C-w><cr>
+inoremap <F7> :grep <C-r><C-w><cr>
+set makeprg=make\ -j8
+
 func! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*
 endf
@@ -198,7 +199,7 @@ func! UseGrep()
     set grepprg=grep\ -n\ $*\ /dev/null
 endf
 " call UseGitGrep()
-set grepprg=ack
+set grepprg=ack\ --type=cpp
 
 " Add my tags
 set tags+=~/work/tags
