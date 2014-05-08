@@ -182,6 +182,9 @@ inoremap <F4> <esc>:YcmCompleter GoToDefinition<cr>
 
 let g:Powerline_symbols="fancy"
 
+" better tag jump
+noremap ,g g<C-]>
+inoremap ,g g<C-]>
 
 "Make
 noremap <F5> :make<cr>
