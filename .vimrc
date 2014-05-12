@@ -151,6 +151,19 @@ noremap <F2> :NERDTreeToggle<cr>
 
 let g:ctrlp_working_path_mode = 0
 
+function! SetDayColor()
+python << EOF
+import vim, time
+hour = time.localtime().tm_hour
+if hour >= 18 or hour < 8:
+    vim.command("set background=dark\n")
+else:
+    vim.command("set background=light\n")
+EOF
+endfunction
+call SetDayColor()
+
+
 " Remapping for YankRing
 let g:yankring_replace_n_pkey = ",p"
 let g:yankring_replace_n_nkey = ",n"
