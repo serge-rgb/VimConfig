@@ -107,7 +107,7 @@ func! LoadRC()
 endf
 
 func! IDEify()
-    set columns=260
+    set columns=300
     set lines=100
     vsplit
     cope
