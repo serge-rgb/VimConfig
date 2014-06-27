@@ -6,12 +6,14 @@ if has("gui_running")
     " Tagbar signature highliting sucks
     hi link TagbarSignature Statement
 
-    colorscheme solarized
+    " colorscheme solarized
     " colorscheme Gloom
     " colorscheme Earthsong
     " colorscheme Goldfish
     " colorscheme zenburn
     " colorscheme molokai
+    " === light
+    colorscheme pencil
 
     map <M-o> :CommandT<CR>
     if has("win32")
@@ -21,8 +23,8 @@ if has("gui_running")
             if has("macunix")
                 set guifont=Monaco:h11
             else
-                " set guifont=Ubuntu\ Mono\ 11
-                set guifont=DejaVu\ Sans\ Mono\ 10
+                set guifont=Ubuntu\ Mono\ 12
+                " set guifont=DejaVu\ Sans\ Mono\ 10
             endif
         endif
     endif

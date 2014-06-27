@@ -1,4 +1,3 @@
-set nocompatible
 filetype on  " Yep..
 filetype off
 if has("win32")
@@ -44,7 +43,7 @@ Bundle 'wting/rust.vim'
 Bundle 'vim-scripts/slimv.vim'
 Bundle 'bitc/vim-hdevtools'
 Bundle 'lukerandall/haskellmode-vim'
-"... Latex crap"
+"... Latex crap
 Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 
 "==== Rainbows
@@ -52,7 +51,7 @@ Bundle 'altercation/vim-colors-solarized'
 Bundle 'daylerees/colour-schemes', { 'rtp': 'vim-themes/' }
 Bundle 'tomasr/molokai'
 Bundle 'jnurmine/Zenburn.git'
-
+Bundle 'reedes/vim-colors-pencil'
 
 set backspace=2
 set history=1024  " Lines of history
@@ -71,7 +70,7 @@ syntax on
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
-au BufNewFile,BufRead *.glsl set filetype=glsl330
+au BufNewFile,BufRead *.glsl set filetype=glsl430
 
 " Hide buffers, don't close them
 set hidden
@@ -92,6 +91,12 @@ function! LongLines()
     set nolist
     set textwidth=0
     set wrapmargin=0
+endfunction
+
+function! Index()
+    !ctags -R .
+    UpdateTypesFile
+    ClearAllCtrlPCaches
 endfunction
 
 " Personal log helpers...
@@ -151,17 +156,26 @@ noremap <F2> :NERDTreeToggle<cr>
 
 let g:ctrlp_working_path_mode = 0
 
-function! SetDayColor()
-python << EOF
-import vim, time
-hour = time.localtime().tm_hour
-if hour >= 18 or hour < 8:
-    vim.command("set background=dark\n")
-else:
-    vim.command("set background=light\n")
-EOF
-endfunction
-call SetDayColor()
+" function! SetDayColor()
+" python << EOF
+" import vim, time
+" hour = time.localtime().tm_hour
+" if hour >= 18 or hour < 8:
+"     vim.command("set background=dark\n")
+" else:
+"     vim.command("set background=light\n")
+" EOF
+" endfunction
+" call SetDayColor()
+"
+"
+
+" Go through errors
+" :grep
+noremap <F8> :cnext<cr>
+noremap <F9> :crewind<cr>
+inoremap <F8> :cnext<cr>
+inoremap <F9> :crewind<cr>
 
 
 " Remapping for YankRing
@@ -200,7 +214,7 @@ noremap ,g g<C-]>
 inoremap ,g g<C-]>
 
 "Make
-noremap <F5> :make<cr>
+noremap <F5> :make<cr>:botright cw<cr>
 inoremap <F5> <esc>:make<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
@@ -229,7 +243,7 @@ set cino=N-s,:0,l1,g0
 au BufNewFile,BufRead cpp set filetype=cpp
 
 " Quickfix window variable Height
-au FileType qf call AdjustWindowHeight(3, 40)
+au FileType qf call AdjustWindowHeight(3, 20)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
@@ -286,4 +300,5 @@ let g:tagbar_type_go = {
 
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpen fj<CR>/
+let g:tagbar_sort = 0
 
