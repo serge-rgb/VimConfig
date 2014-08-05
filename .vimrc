@@ -1,7 +1,7 @@
 filetype on  " Yep..
 filetype off
 if has("win32")
-    set rtp+=~/vimfiles/bundle/vundle
+    set rtp+=~/vimfiles/bundle/Vundle.vim
 else
     if has("unix")
         set rtp+=~/.vim/bundle/vundle/
@@ -25,9 +25,9 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'YankRing.vim'
 
 "==== Completion / IDE stuff
-Bundle "scrooloose/syntastic"
-Bundle "Valloric/YouCompleteMe"
-" Bundle "Shougo/neocomplete"
+" Bundle "scrooloose/syntastic"
+" Bundle "Valloric/YouCompleteMe"
+Bundle "Shougo/neocomplete"
 Bundle 'a.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
@@ -249,7 +249,7 @@ function! AdjustWindowHeight(minheight, maxheight)
 endfunction
 " ----- Python
 let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-let g:syntastic_python_checkers = []
+" let g:syntastic_python_checkers = []
 " ----- Haskell
 au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F8> :HdevtoolsClear<CR>
@@ -302,3 +302,23 @@ map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpen fj<CR>/
 let g:tagbar_sort = 0
 
+"  ======= neocomplete
+"
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" AutoComplPop like behavior.
+let g:neocomplete#enable_auto_select = 1
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'"
