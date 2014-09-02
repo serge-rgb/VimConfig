@@ -27,6 +27,7 @@ Bundle 'YankRing.vim'
 "==== Completion / IDE stuff
 " Bundle "scrooloose/syntastic"
 " Bundle "Valloric/YouCompleteMe"
+" Bundle "Rip-Rip/clang_complete"
 Bundle "Shougo/neocomplete"
 Bundle 'a.vim'
 Bundle 'kien/ctrlp.vim'
@@ -37,14 +38,14 @@ Bundle 'SirVer/ultisnips'
 "... Random lang support
 " Bundle 'Blackrush/vim-gocode'
 Bundle 'beyondmarc/glsl.vim'
-Bundle 'kelan/gyp.vim'
+" Bundle 'kelan/gyp.vim'
 Bundle 'tpope/vim-markdown'
-Bundle 'wting/rust.vim'
-Bundle 'vim-scripts/slimv.vim'
-Bundle 'bitc/vim-hdevtools'
-Bundle 'lukerandall/haskellmode-vim'
+" Bundle 'wting/rust.vim'
+" Bundle 'vim-scripts/slimv.vim'
+" Bundle 'bitc/vim-hdevtools'
+" Bundle 'lukerandall/haskellmode-vim'
 "... Latex crap
-Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
+" Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 
 "==== Rainbows
 Bundle 'altercation/vim-colors-solarized'
@@ -91,6 +92,7 @@ function! LongLines()
     set nolist
     set textwidth=0
     set wrapmargin=0
+    set colorcolumn=0
 endfunction
 
 function! Index()
@@ -103,21 +105,10 @@ endfunction
 func! OpenLog()
     e ~/Dropbox/log.txt
 endf
-au BufRead *.txt noremap <leader>t o --- 0pom<esc>^hi
-au BufRead *.txt noremap <leader>a :Tabularize /---<cr>
 
 func! LoadRC()
     so ~/.vimrc
     so ~/.gvimrc
-endf
-
-func! IDEify()
-    set columns=300
-    set lines=100
-    vsplit
-    cope
-    TagbarToggle
-    execute "normal! \<C-w>="
 endf
 
 " Highlight current line.
@@ -140,7 +131,9 @@ set noerrorbells
 set nobackup
 set noswapfile
 
+set nocompatible
 set laststatus=2 "Always display status line
+set encoding=utf-8
 "set cmdheight=2
 
 "Remap j and k to be visual
@@ -170,14 +163,6 @@ let g:ctrlp_working_path_mode = 0
 "
 "
 
-" Go through errors
-" :grep
-noremap <F8> :cnext<cr>
-noremap <F9> :crewind<cr>
-inoremap <F8> :cnext<cr>
-inoremap <F9> :crewind<cr>
-
-
 " Remapping for YankRing
 let g:yankring_replace_n_pkey = ",p"
 let g:yankring_replace_n_nkey = ",n"
@@ -199,13 +184,8 @@ inoremap <C-s> <esc>:w<cr>
 noremap <C-Tab> :A<cr>
 inoremap <C-Tab> <esc>:A<cr>
 
-" Move between functions
-noremap <leader>e ]}
-
 " Change directory to current file.
 nmap <leader>d :cd %:p:h<cr>
-noremap <F4> :YcmCompleter GoToDefinition<cr>
-inoremap <F4> <esc>:YcmCompleter GoToDefinition<cr>
 
 let g:Powerline_symbols="fancy"
 
@@ -214,12 +194,19 @@ noremap ,g g<C-]>
 inoremap ,g g<C-]>
 
 "Make
-noremap <F5> :make<cr>:botright cw<cr>
-inoremap <F5> <esc>:make<cr>
+noremap <F5> :w<esc>:make<cr>
+inoremap <F5> <esc>:w<cr>:make<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 noremap <F7> :grep <C-r><C-w><cr>
 inoremap <F7> :grep <C-r><C-w><cr>
+" Go through errors
+" :grep
+noremap <F8> :cnext<cr>
+noremap <F9> :crewind<cr>
+inoremap <F8> :cnext<cr>
+inoremap <F9> :crewind<cr>
+
 set makeprg=make\ -j8
 
 func! UseGitGrep()
@@ -322,3 +309,8 @@ if !exists('g:neocomplete#sources#omni#input_patterns')
 endif
 let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'"
+
+" TODO: wtf
+" let g:clang_exec= 'C:\LLVM\bin\clang.exe'
+" let g:clang_user_options = '2> NUL || exit 0'
+
