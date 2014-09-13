@@ -15,10 +15,12 @@ if has("gui_running")
     " === light
     colorscheme pencil
 
+    set background=light
+    " set background=dark
+
     map <M-o> :CommandT<CR>
     if has("win32")
         set guifont=Consolas_for_Powerline_FixedD:h10
-        set background=light
         set enc=utf-8
     else
         if has("unix")
