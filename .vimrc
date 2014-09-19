@@ -59,6 +59,8 @@ set history=1024  " Lines of history
 filetype plugin on
 filetype indent on
 
+let $TMP="C:/tmp"
+
 " No bells
 "
 set noerrorbells
@@ -66,12 +68,16 @@ set novisualbell
 set t_vb=
 autocmd! GUIEnter * set vb t_vb=
 
+set autoread  " Reload when I modify the file elsewhere.
+
 syntax on
 
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 au BufNewFile,BufRead *.glsl set filetype=glsl430
+
+au BufNewFile * set ff=unix
 
 " Hide buffers, don't close them
 set hidden
@@ -194,8 +200,8 @@ noremap ,g g<C-]>
 inoremap ,g g<C-]>
 
 "Make
-noremap <F5> :w<esc>:make<cr>
-inoremap <F5> <esc>:w<cr>:make<cr>
+noremap <F5> :w<esc>:make<cr><cr>:botright cw<cr>
+inoremap <F5> <esc>:w<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 noremap <F7> :grep <C-r><C-w><cr>
@@ -206,6 +212,8 @@ noremap <F8> :cnext<cr>
 noremap <F9> :crewind<cr>
 inoremap <F8> :cnext<cr>
 inoremap <F9> :crewind<cr>
+noremap <F10> :botright cope<cr>
+inoremap <F10> :botright cope<cr>
 
 set makeprg=make\ -j8
 
