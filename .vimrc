@@ -50,12 +50,12 @@ Bundle 'tpope/vim-markdown'
 "==== Rainbows
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'daylerees/colour-schemes', { 'rtp': 'vim-themes/' }
-Bundle 'tomasr/molokai'
+Bundle 'lsdr/monokai'
 Bundle 'jnurmine/Zenburn.git'
 Bundle 'reedes/vim-colors-pencil'
 
 "==== Other
-Bundle 'mhinz/vim-startify'
+" Bundle 'mhinz/vim-startify'
 
 set backspace=2
 set history=1024  " Lines of history
@@ -85,7 +85,7 @@ au BufNewFile * set ff=unix
 " Hide buffers, don't close them
 set hidden
 
-"set shellslash
+set shellslash
 
 set nobackup
 set nowritebackup
@@ -143,7 +143,7 @@ set noswapfile
 set nocompatible
 set laststatus=2 "Always display status line
 set encoding=utf-8
-"set cmdheight=2
+set cmdheight=2 " avoid hit-enter promts
 
 "Remap j and k to be visual
 noremap j gj
@@ -158,28 +158,21 @@ noremap <F2> :NERDTreeToggle<cr>
 
 let g:ctrlp_working_path_mode = 0
 
-" function! SetDayColor()
-" python << EOF
-" import vim, time
-" hour = time.localtime().tm_hour
-" if hour >= 18 or hour < 8:
-"     vim.command("set background=dark\n")
-" else:
-"     vim.command("set background=light\n")
-" EOF
-" endfunction
-" call SetDayColor()
-"
-"
+function! SetDayColor()
+python << EOF
+import vim, time
+hour = time.localtime().tm_hour
+if hour >= 18 or hour < 8:
+    vim.command("set background=dark\n")
+else:
+    vim.command("set background=light\n")
+EOF
+endfunction
+"call SetDayColor()
 
 " Remapping for YankRing
 let g:yankring_replace_n_pkey = ",p"
 let g:yankring_replace_n_nkey = ",n"
-
-" Ultisnips with YouCompleteMe
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Better than esc.
 inoremap jj <esc>
@@ -207,16 +200,18 @@ noremap <F5> :w<esc>:make<cr><cr>:botright cw<cr>
 inoremap <F5> <esc>:w<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
+" Grep instances of word at point:
 noremap <F7> :grep <C-r><C-w><cr>
 inoremap <F7> :grep <C-r><C-w><cr>
-" Go through errors
-" :grep
+" Go through errors in cwind
 noremap <F8> :cnext<cr>
 noremap <F9> :crewind<cr>
 inoremap <F8> :cnext<cr>
 inoremap <F9> :crewind<cr>
 noremap <F10> :botright cope<cr>
 inoremap <F10> :botright cope<cr>
+noremap <S-F10> :cclose<cr>
+inoremap <S-F10> :cclose<cr>
 
 set makeprg=make\ -j8
 
@@ -245,9 +240,6 @@ au FileType qf call AdjustWindowHeight(3, 20)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-" ----- Python
-let g:ycm_path_to_python_interpreter = '/usr/bin/python'
-" let g:syntastic_python_checkers = []
 " ----- Haskell
 au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
 au FileType haskell nnoremap <buffer> <silent> <F8> :HdevtoolsClear<CR>
@@ -318,13 +310,13 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 if !exists('g:neocomplete#force_omni_input_patterns')
 let g:neocomplete#force_omni_input_patterns = {}
 endif
-let g:neocomplete#force_overwrite_completefunc = 1
-let g:neocomplete#force_omni_input_patterns.c =
-\ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-let g:neocomplete#force_omni_input_patterns.cpp =
-\ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-let g:neocomplete#force_omni_input_patterns.objc =
-\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-let g:neocomplete#force_omni_input_patterns.objcpp =
-\ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
+" let g:neocomplete#force_overwrite_completefunc = 1
+" let g:neocomplete#force_omni_input_patterns.c =
+" \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+" let g:neocomplete#force_omni_input_patterns.cpp =
+" \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+" let g:neocomplete#force_omni_input_patterns.objc =
+" \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+" let g:neocomplete#force_omni_input_patterns.objcpp =
+" \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 
