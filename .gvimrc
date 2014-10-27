@@ -16,6 +16,8 @@ if has("gui_running")
 
     " set background=dark
     " set background=light
+    "
+    highlight ColorColumn guibg=Black
 
     map <M-o> :CommandT<CR>
     if has("win32")
