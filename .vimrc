@@ -23,6 +23,7 @@ Bundle 'godlygeek/tabular'
 Bundle 'TagHighlight'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'YankRing.vim'
+Bundle 'justinmk/vim-gtfo'
 
 "==== Completion / IDE stuff
 " Bundle "scrooloose/syntastic"
@@ -49,7 +50,6 @@ Bundle 'tpope/vim-markdown'
 
 "==== Rainbows
 Bundle 'altercation/vim-colors-solarized'
-Bundle 'daylerees/colour-schemes', { 'rtp': 'vim-themes/' }
 Bundle 'lsdr/monokai'
 Bundle 'jnurmine/Zenburn.git'
 Bundle 'reedes/vim-colors-pencil'
