@@ -6,18 +6,19 @@ if has("gui_running")
     " Tagbar signature highliting sucks
     hi link TagbarSignature Statement
 
-    "colorscheme solarized
+    " set background=dark
+    set background=light
+
+    " colorscheme solarized
     " colorscheme Gloom
     " colorscheme Earthsong
     " colorscheme Goldfish
     " colorscheme zenburn
-    colorscheme monokai
+    " colorscheme monokai
     " colorscheme pencil
+    colorscheme base16-google
 
-    " set background=dark
-    " set background=light
-    "
-    highlight ColorColumn guibg=Black
+    "highlight ColorColumn guibg=Black
 
     map <M-o> :CommandT<CR>
     if has("win32")

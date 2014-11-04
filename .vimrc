@@ -39,6 +39,7 @@ Bundle 'SirVer/ultisnips'
 "... Random lang support
 " Bundle 'Blackrush/vim-gocode'
 Bundle 'beyondmarc/glsl.vim'
+Bundle 'petRUShka/vim-opencl'
 " Bundle 'kelan/gyp.vim'
 Bundle 'tpope/vim-markdown'
 " Bundle 'wting/rust.vim'
@@ -49,6 +50,7 @@ Bundle 'tpope/vim-markdown'
 " Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
 
 "==== Rainbows
+Bundle 'chriskempson/base16-vim'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'lsdr/monokai'
 Bundle 'jnurmine/Zenburn.git'
@@ -79,6 +81,7 @@ syntax on
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 au BufNewFile,BufRead *.glsl set filetype=glsl430
+au BufNewFile,BufRead *.cl set filetype=opencl
 
 au BufNewFile * set ff=unix
 
@@ -289,7 +292,7 @@ let g:tagbar_type_go = {
 
 
 map <f3> :TagbarToggle<CR>
-map <C-l> :TagbarOpen fj<CR>/
+map <C-l> :TagbarOpenAutoClose<CR>/
 let g:tagbar_sort = 0
 
 "  ======= neocomplete
