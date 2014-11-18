@@ -94,7 +94,9 @@ set nobackup
 set nowritebackup
 
 set wildmenu
-set number
+set number  "Show lines
+set nonumber  " actually, don't show lines
+
 " Very magic search
 nnoremap / /\v
 
@@ -216,7 +218,7 @@ inoremap <F10> :botright cope<cr>
 noremap <S-F10> :cclose<cr>
 inoremap <S-F10> :cclose<cr>
 
-set makeprg=make\ -j8
+set makeprg=build
 
 func! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*

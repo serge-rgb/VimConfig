@@ -1,6 +1,9 @@
 if has("gui_running")
     set lines=80 columns=120
-    set guioptions-=T
+    set guioptions-=T "No toolbar
+    " Remove scrobars:
+    set guioptions-=r
+    set guioptions-=L
     let g:molokai_original=1
 
     " Tagbar signature highliting sucks
