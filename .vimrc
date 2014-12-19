@@ -26,7 +26,7 @@ Bundle 'YankRing.vim'
 Bundle 'justinmk/vim-gtfo'
 
 "==== Completion / IDE stuff
-" Bundle "scrooloose/syntastic"
+Bundle "scrooloose/syntastic"
 " Bundle "Valloric/YouCompleteMe"
 " Bundle "Rip-Rip/clang_complete"
 Bundle "Shougo/neocomplete"
@@ -110,7 +110,7 @@ function! LongLines()
 endfunction
 
 function! Index()
-    !ctags -R .
+    silent ! ctags -R .
     UpdateTypesFile
     ClearAllCtrlPCaches
 endfunction
@@ -131,6 +131,7 @@ set cursorline
 set hlsearch
 " clear highlight with C-k
 nnoremap <C-k> :noh<cr><cr>
+nnoremap <CR> :noh<cr><cr>
 set incsearch
 set ignorecase
 set smartcase
@@ -179,13 +180,17 @@ endfunction
 let g:yankring_replace_n_pkey = ",p"
 let g:yankring_replace_n_nkey = ",n"
 
+let mapleader=','
+
 " Better than esc.
 inoremap jj <esc>
 " Go to the end while in insert mode
 inoremap ,, <esc>A
 " Saving
-nmap <C-s> :w<cr>
-inoremap <C-s> <esc>:w<cr>
+"nmap <C-s> :w<cr>
+"noremap <C-s> <esc>:w<cr>
+" ctrl-s is cumbersome
+noremap <leader>s :w<cr>
 
 " Swap Header/Impl
 noremap <C-Tab> :A<cr>
@@ -194,6 +199,24 @@ inoremap <C-Tab> <esc>:A<cr>
 " Change directory to current file.
 nmap <leader>d :cd %:p:h<cr>
 
+" ==== Insert mode mappings.
+" Emacs style
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
+inoremap <C-k> <esc>d$I
+
+" Sane stuf
+inoremap <C-BS> <esc>bce
+
+" ==== Text edit improvements
+
+" make word lowercase
+noremap <leader>u bgUl
+" make word lowercase
+noremap <leader>U gUiw
+
+
+
 let g:Powerline_symbols="fancy"
 
 " better tag jump
@@ -201,8 +224,8 @@ noremap ,g g<C-]>
 inoremap ,g g<C-]>
 
 "Make
-noremap <F5> :w<esc>:make<cr><cr>:botright cw<cr>
-inoremap <F5> <esc>:w<cr>:make<cr><cr>:botright cw<cr>
+noremap <F5> :wa<esc>:make<cr><cr>:botright cw<cr>
+inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 " Grep instances of word at point:

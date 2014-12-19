@@ -1,27 +1,27 @@
 if has("gui_running")
-    set lines=80 columns=120
+    set lines=60 columns=120
     set guioptions-=T "No toolbar
     " Remove scrobars:
     set guioptions-=r
     set guioptions-=L
-    let g:molokai_original=1
 
-    " Tagbar signature highliting sucks
+    " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    " set background=dark
-    set background=light
-
-    " colorscheme solarized
-    " colorscheme Gloom
-    " colorscheme Earthsong
-    " colorscheme Goldfish
+    colorscheme solarized
     " colorscheme zenburn
     " colorscheme monokai
     " colorscheme pencil
-    colorscheme base16-google
+    " colorscheme base16-google
 
-    "highlight ColorColumn guibg=Black
+    " some themes set column highlight to ugly colors
+
+    " highlight ColorColumn guibg=Black
+
+    " set background=dark
+    " set background=light
+
+    cal SetDayColor() " defined in vimrc
 
     map <M-o> :CommandT<CR>
     if has("win32")
