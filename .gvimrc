@@ -25,7 +25,7 @@ if has("gui_running")
 
     map <M-o> :CommandT<CR>
     if has("win32")
-        set guifont=Consolas_for_Powerline_FixedD:h10
+        set guifont=Consolas:h10
         set enc=utf-8
     else
         if has("unix")

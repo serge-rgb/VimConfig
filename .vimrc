@@ -1,5 +1,4 @@
-filetype on  " Yep..
-filetype off
+filetype on
 if has("win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
 else
@@ -8,63 +7,78 @@ else
     endif
 endif
 
-call vundle#rc()
 
-Bundle 'gmarik/vundle'
+if has('win32')
+    let path='~/vimfiles/bundle'
+    call vundle#begin(path)
+else
+    call vundle#begin()
+endif
+
+Plugin 'gmarik/vundle'
 
 "==== Vim editing steroids
-Bundle 'Auto-Pairs'
-Bundle 'tpope/vim-commentary'
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-speeddating'
-Bundle 'surround.vim'
-Bundle 'godlygeek/tabular'
-Bundle 'TagHighlight'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'YankRing.vim'
-Bundle 'justinmk/vim-gtfo'
+Plugin 'Auto-Pairs'
+Plugin 'tpope/vim-commentary'
+Plugin 'bling/vim-airline'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-speeddating'
+Plugin 'surround.vim'
+Plugin 'godlygeek/tabular'
+Plugin 'TagHighlight'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'YankRing.vim'
+Plugin 'justinmk/vim-gtfo'
 
 "==== Completion / IDE stuff
-Bundle "scrooloose/syntastic"
-" Bundle "Valloric/YouCompleteMe"
-" Bundle "Rip-Rip/clang_complete"
-Bundle "Shougo/neocomplete"
-Bundle 'a.vim'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'scrooloose/nerdtree'
-Bundle 'majutsushi/tagbar'
-Bundle 'SirVer/ultisnips'
+Plugin 'a.vim'
+Plugin 'kien/ctrlp.vim'
+Plugin 'tpope/vim-fugitive'
+Plugin 'scrooloose/nerdtree'
+Plugin 'majutsushi/tagbar'
+Plugin 'beyondmarc/glsl.vim'
+Plugin 'petRUShka/vim-opencl'
+Plugin 'tpope/vim-markdown'
+" Plugin 'spolu/dwm'
+" Plugin 'SirVer/ultisnips'
 "... Random lang support
-" Bundle 'Blackrush/vim-gocode'
-Bundle 'beyondmarc/glsl.vim'
-Bundle 'petRUShka/vim-opencl'
-" Bundle 'kelan/gyp.vim'
-Bundle 'tpope/vim-markdown'
-" Bundle 'wting/rust.vim'
-" Bundle 'vim-scripts/slimv.vim'
-" Bundle 'bitc/vim-hdevtools'
-" Bundle 'lukerandall/haskellmode-vim'
+" Plugin 'Blackrush/vim-gocode'
+" Plugin 'kelan/gyp.vim'
+" Plugin 'wting/rust.vim'
+" Plugin 'vim-scripts/slimv.vim'
+" Plugin 'bitc/vim-hdevtools'
+" Plugin 'lukerandall/haskellmode-vim'
 "... Latex crap
-" Bundle 'git://git.code.sf.net/p/vim-latex/vim-latex'
+" Plugin 'git://git.code.sf.net/p/vim-latex/vim-latex'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Rip-Rip/clang_complete'
+" Plugin 'Shougo/neocomplete'
 
 "==== Rainbows
-Bundle 'chriskempson/base16-vim'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'lsdr/monokai'
-Bundle 'jnurmine/Zenburn.git'
-Bundle 'reedes/vim-colors-pencil'
+Plugin 'chriskempson/base16-vim'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'lsdr/monokai'
+Plugin 'jnurmine/Zenburn.git'
+Plugin 'reedes/vim-colors-pencil'
 
 "==== Other
-" Bundle 'mhinz/vim-startify'
+" Plugin 'mhinz/vim-startify'
+
+call vundle#end()
+
 
 set backspace=2
 set history=1024  " Lines of history
 filetype plugin on
 filetype indent on
 
-let $TMP="C:/tmp"
+if has('win32')
+    let $TMP="C:/tmp" " This should exist...
+    set shellslash
+endif
+
+
 
 " No bells
 "
@@ -88,7 +102,7 @@ au BufNewFile * set ff=unix
 " Hide buffers, don't close them
 set hidden
 
-set shellslash
+"set shellslash
 
 set nobackup
 set nowritebackup
@@ -97,9 +111,7 @@ set wildmenu
 set number  "Show lines
 set nonumber  " actually, don't show lines
 
-" Very magic search
-nnoremap / /\v
-
+" For writing prose
 function! LongLines()
     set wrap
     set linebreak
@@ -109,27 +121,22 @@ function! LongLines()
     set colorcolumn=0
 endfunction
 
+" Pretty syntax.
 function! Index()
     silent ! ctags -R .
     UpdateTypesFile
-    ClearAllCtrlPCaches
 endfunction
 
-" Personal log helpers...
+" Personal log
 func! OpenLog()
     e ~/Dropbox/log.txt
-endf
-
-func! LoadRC()
-    so ~/.vimrc
-    so ~/.gvimrc
 endf
 
 " Highlight current line.
 set cursorline
 
 set hlsearch
-" clear highlight with C-k
+" clear highlight with C-k or enter
 nnoremap <C-k> :noh<cr><cr>
 nnoremap <CR> :noh<cr><cr>
 set incsearch
@@ -140,8 +147,6 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set softtabstop=4
-
-set noerrorbells
 
 set nobackup
 set noswapfile
@@ -158,23 +163,23 @@ noremap k gk
 "Auto-Pairs config
 let g:AutoPairsFlyMode=0
 
+" CtrlP config.
 noremap <C-b> :CtrlPBuffer<cr>
 inoremap <C-b> <esc>:CtrlPBuffer<cr>
 noremap <F2> :NERDTreeToggle<cr>
-
 let g:ctrlp_working_path_mode = 0
 
+" Called at vim startup
 function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
-if hour >= 18 or hour < 8:
+if hour >= 18 or hour < 7:
     vim.command("set background=dark\n")
 else:
     vim.command("set background=light\n")
 EOF
 endfunction
-"call SetDayColor()
 
 " Remapping for YankRing
 let g:yankring_replace_n_pkey = ",p"
@@ -199,6 +204,9 @@ inoremap <C-Tab> <esc>:A<cr>
 " Change directory to current file.
 nmap <leader>d :cd %:p:h<cr>
 
+" Ctrl-w is cumbersome
+noremap <leader>w <C-w>
+
 " ==== Insert mode mappings.
 " Emacs style
 inoremap <C-e> <esc>A
@@ -210,14 +218,12 @@ inoremap <C-BS> <esc>bce
 
 " ==== Text edit improvements
 
-" make word lowercase
-noremap <leader>u bgUl
-" make word lowercase
+" make word Capitalized
+noremap <leader>u ebgUl
+" make word UPPERCASE
 noremap <leader>U gUiw
-
-
-
-let g:Powerline_symbols="fancy"
+noremap <leader>e $
+noremap <leader>a ^
 
 " better tag jump
 noremap ,g g<C-]>
@@ -241,6 +247,9 @@ inoremap <F10> :botright cope<cr>
 noremap <S-F10> :cclose<cr>
 inoremap <S-F10> :cclose<cr>
 
+" Don't mess with my window. Use buffer in already open tab. Otherwise, split
+set switchbuf+=usetab,split
+
 set makeprg=build
 
 func! UseGitGrep()
@@ -251,9 +260,6 @@ func! UseGrep()
 endf
 " call UseGitGrep()
 set grepprg=ack\ --type=cpp
-
-" Add my tags
-set tags+=~/work/tags
 
 " C++ style
 set colorcolumn=81,101
@@ -268,60 +274,12 @@ au FileType qf call AdjustWindowHeight(3, 20)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-" ----- Haskell
-au FileType haskell nnoremap <buffer> <F7> :HdevtoolsType<CR>
-au FileType haskell nnoremap <buffer> <silent> <F8> :HdevtoolsClear<CR>
-au FileType haskell nnoremap <buffer> <silent> <F9> :HdevtoolsInfo<CR>
-
-"tagbar rust support:
-let g:tagbar_type_rust = {
-    \ 'ctagstype' : 'rust',
-    \ 'kinds'     : [
-    \ 'f:function',
-    \ 'T:types',
-    \ 'm:modules',
-    \ 'c:consts',
-    \ 't:traits',
-    \ 'I:impls',
-    \ 'M:macros'
-    \ ]
-\ }
-
-let g:tagbar_type_go = {
-    \ 'ctagstype' : 'go',
-    \ 'kinds'     : [
-        \ 'p:package',
-        \ 'i:imports:1',
-        \ 'c:constants',
-        \ 'v:variables',
-        \ 't:types',
-        \ 'n:interfaces',
-        \ 'w:fields',
-        \ 'e:embedded',
-        \ 'm:methods',
-        \ 'r:constructor',
-        \ 'f:functions'
-    \ ],
-    \ 'sro' : '.',
-    \ 'kind2scope' : {
-        \ 't' : 'ctype',
-        \ 'n' : 'ntype'
-    \ },
-    \ 'scope2kind' : {
-        \ 'ctype' : 't',
-        \ 'ntype' : 'n'
-    \ },
-    \ 'ctagsbin'  : 'gotags',
-    \ 'ctagsargs' : '-sort -silent'
-\ }
-
 
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpenAutoClose<CR>/
 let g:tagbar_sort = 0
 
 "  ======= neocomplete
-"
 let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
 let g:neocomplete#enable_smart_case = 1
@@ -334,7 +292,6 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 if !exists('g:neocomplete#force_omni_input_patterns')
 let g:neocomplete#force_omni_input_patterns = {}
 endif
@@ -347,4 +304,3 @@ endif
 " \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
 " let g:neocomplete#force_omni_input_patterns.objcpp =
 " \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-
