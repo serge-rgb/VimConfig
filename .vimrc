@@ -39,6 +39,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
+Plugin 'rking/ag.vim'
 " Plugin 'spolu/dwm'
 " Plugin 'SirVer/ultisnips'
 "... Random lang support
@@ -78,15 +79,6 @@ if has('win32')
     set shellslash
 endif
 
-
-
-" No bells
-"
-set noerrorbells
-set novisualbell
-set t_vb=
-autocmd! GUIEnter * set vb t_vb=
-
 set autoread  " Reload when I modify the file elsewhere.
 
 syntax on
@@ -119,6 +111,9 @@ function! LongLines()
     set textwidth=0
     set wrapmargin=0
     set colorcolumn=0
+    "Remap j and k to be visual
+    noremap j gj
+    noremap k gk
 endfunction
 
 " Pretty syntax.
@@ -155,10 +150,6 @@ set nocompatible
 set laststatus=2 "Always display status line
 set encoding=utf-8
 set cmdheight=2 " avoid hit-enter promts
-
-"Remap j and k to be visual
-noremap j gj
-noremap k gk
 
 "Auto-Pairs config
 let g:AutoPairsFlyMode=0
@@ -234,9 +225,9 @@ noremap <F5> :wa<esc>:make<cr><cr>:botright cw<cr>
 inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
-" Grep instances of word at point:
-noremap <F7> :grep <C-r><C-w><cr>
-inoremap <F7> :grep <C-r><C-w><cr>
+" Silver Searcher
+noremap <F7> :Ag! <C-r><C-w><cr>
+inoremap <F7> :Ag! <C-r><C-w><cr>
 " Go through errors in cwind
 noremap <F8> :cnext<cr>
 noremap <F9> :crewind<cr>
