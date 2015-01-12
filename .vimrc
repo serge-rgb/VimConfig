@@ -3,7 +3,7 @@ if has("win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
 else
     if has("unix")
-        set rtp+=~/.vim/bundle/vundle/
+        set rtp+=~/.vim/bundle/Vundle.vim/
     endif
 endif
 
@@ -15,7 +15,7 @@ else
     call vundle#begin()
 endif
 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 "==== Vim editing steroids
 Plugin 'Auto-Pairs'
@@ -30,17 +30,17 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'YankRing.vim'
 Plugin 'justinmk/vim-gtfo'
 
-"==== Completion / IDE stuff
+"==== IDE stuff
 Plugin 'a.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
+Plugin 'mileszs/ack.vim'
+"... Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
-Plugin 'rking/ag.vim'
-"... Random lang support
 " Plugin 'Blackrush/vim-gocode'
 " Plugin 'kelan/gyp.vim'
 " Plugin 'wting/rust.vim'
@@ -60,9 +60,6 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'lsdr/monokai'
 Plugin 'jnurmine/Zenburn.git'
 Plugin 'reedes/vim-colors-pencil'
-
-"==== Other
-" Plugin 'mhinz/vim-startify'
 
 call vundle#end()
 
@@ -153,8 +150,9 @@ set cmdheight=2 " avoid hit-enter promts
 let g:AutoPairsFlyMode=0
 
 " CtrlP config.
-noremap <C-b> :CtrlPBuffer<cr>
-inoremap <C-b> <esc>:CtrlPBuffer<cr>
+noremap <leader>b :CtrlPBuffer<cr>
+inoremap <leader>b <esc>:CtrlPBuffer<cr>
+
 noremap <F2> :NERDTreeToggle<cr>
 let g:ctrlp_working_path_mode = 0
 
@@ -176,14 +174,11 @@ let g:yankring_replace_n_nkey = ",n"
 
 let mapleader=','
 
-" Better than esc.
-inoremap jj <esc>
+" Better than esc. (go to normal mode and save)
+inoremap jj <esc>:w<cr>
 " Go to the end while in insert mode
 inoremap ,, <esc>A
 " Saving
-"nmap <C-s> :w<cr>
-"noremap <C-s> <esc>:w<cr>
-" ctrl-s is cumbersome
 noremap <leader>s :w<cr>
 
 " Swap Header/Impl
@@ -224,8 +219,9 @@ inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 " Silver Searcher
-noremap <F7> :Ag! <C-r><C-w><cr>
-inoremap <F7> :Ag! <C-r><C-w><cr>
+let g:ackprg = 'ag --nocolor --column'
+noremap <F7> :Ack <C-r><C-w><cr>
+inoremap <F7> :Ack <C-r><C-w><cr>
 " Go through errors in cwind
 noremap <F8> :cnext<cr>
 noremap <F9> :crewind<cr>
@@ -247,8 +243,6 @@ endf
 func! UseGrep()
     set grepprg=grep\ -n\ $*\ /dev/null
 endf
-" call UseGitGrep()
-set grepprg=ack\ --type=cpp
 
 " C++ style
 set colorcolumn=81,101
