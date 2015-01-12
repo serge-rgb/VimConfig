@@ -40,8 +40,6 @@ Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
 Plugin 'rking/ag.vim'
-" Plugin 'spolu/dwm'
-" Plugin 'SirVer/ultisnips'
 "... Random lang support
 " Plugin 'Blackrush/vim-gocode'
 " Plugin 'kelan/gyp.vim'
@@ -165,7 +163,7 @@ function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
-if hour >= 18 or hour < 7:
+if hour >= 15 or hour < 8:
     vim.command("set background=dark\n")
 else:
     vim.command("set background=light\n")
@@ -205,7 +203,7 @@ inoremap <C-a> <esc>I
 inoremap <C-k> <esc>d$I
 
 " Sane stuf
-inoremap <C-BS> <esc>bce
+inoremap <C-BS> <C-W>
 
 " ==== Text edit improvements
 
@@ -269,29 +267,3 @@ endfunction
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpenAutoClose<CR>/
 let g:tagbar_sort = 0
-
-"  ======= neocomplete
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-" AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-if !exists('g:neocomplete#force_omni_input_patterns')
-let g:neocomplete#force_omni_input_patterns = {}
-endif
-" let g:neocomplete#force_overwrite_completefunc = 1
-" let g:neocomplete#force_omni_input_patterns.c =
-" \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-" let g:neocomplete#force_omni_input_patterns.cpp =
-" \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-" let g:neocomplete#force_omni_input_patterns.objc =
-" \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-" let g:neocomplete#force_omni_input_patterns.objcpp =
-" \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
