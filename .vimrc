@@ -9,6 +9,9 @@ endif
 
 
 if has('win32')
+    " Win64:
+    " veegee vim.
+    " LuaBinaries.sf.net, download x64 dll into vim74 dir.
     let path='~/vimfiles/bundle'
     call vundle#begin(path)
 else
@@ -37,22 +40,13 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
+Plugin 'Shougo/neocomplete.vim'
 "... Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
-" Plugin 'Blackrush/vim-gocode'
-" Plugin 'kelan/gyp.vim'
-" Plugin 'wting/rust.vim'
-" Plugin 'vim-scripts/slimv.vim'
-" Plugin 'bitc/vim-hdevtools'
-" Plugin 'lukerandall/haskellmode-vim'
 "... Latex crap
 " Plugin 'git://git.code.sf.net/p/vim-latex/vim-latex'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'Rip-Rip/clang_complete'
-" Plugin 'Shougo/neocomplete'
 
 "==== Rainbows
 Plugin 'chriskempson/base16-vim'
@@ -89,14 +83,11 @@ au BufNewFile * set ff=unix
 " Hide buffers, don't close them
 set hidden
 
-"set shellslash
-
 set nobackup
 set nowritebackup
 
-set wildmenu
-set number  "Show lines
-set nonumber  " actually, don't show lines
+set wildmenu " command line completion
+set nonumber  " don't show line numbers
 
 " For writing prose
 function! LongLines()
@@ -115,6 +106,7 @@ endfunction
 function! Index()
     silent ! ctags -R .
     UpdateTypesFile
+    ClearCtrlPCache
 endfunction
 
 " Personal log
@@ -149,10 +141,6 @@ set cmdheight=2 " avoid hit-enter promts
 "Auto-Pairs config
 let g:AutoPairsFlyMode=0
 
-" CtrlP config.
-noremap <leader>b :CtrlPBuffer<cr>
-inoremap <leader>b <esc>:CtrlPBuffer<cr>
-
 noremap <F2> :NERDTreeToggle<cr>
 let g:ctrlp_working_path_mode = 0
 
@@ -168,11 +156,15 @@ else:
 EOF
 endfunction
 
-" Remapping for YankRing
-let g:yankring_replace_n_pkey = ",p"
-let g:yankring_replace_n_nkey = ",n"
-
 let mapleader=','
+
+" Remapping for YankRing
+let g:yankring_replace_n_pkey = "<leader>p"
+let g:yankring_replace_n_nkey = "<leader>n"
+
+" CtrlP config.
+noremap <leader>b :CtrlPBuffer<cr>
+inoremap <leader>b <esc>:CtrlPBuffer<cr>
 
 " Better than esc. (go to normal mode and save)
 inoremap jj <esc>:w<cr>
@@ -206,12 +198,13 @@ inoremap <C-BS> <C-W>
 noremap <leader>u ebgUl
 " make word UPPERCASE
 noremap <leader>U gUiw
+" I can never find $ and ^
 noremap <leader>e $
 noremap <leader>a ^
 
 " better tag jump
-noremap ,g g<C-]>
-inoremap ,g g<C-]>
+noremap <leader>g g<C-]>
+inoremap <leader>g g<C-]>
 
 "Make
 noremap <F5> :wa<esc>:make<cr><cr>:botright cw<cr>
@@ -219,7 +212,8 @@ inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 " Silver Searcher
-let g:ackprg = 'ag --nocolor --column'
+" -U ignores .gitignore et al. Should have .agignore to filter crap
+let g:ackprg = 'ag --nocolor --column -U'
 noremap <F7> :Ack <C-r><C-w><cr>
 inoremap <F7> :Ack <C-r><C-w><cr>
 " Go through errors in cwind
@@ -261,3 +255,20 @@ endfunction
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpenAutoClose<CR>/
 let g:tagbar_sort = 0
+
+"  ======= neocomplete
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+" AutoComplPop like behavior.
+let g:neocomplete#enable_auto_select = 1
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+if !exists('g:neocomplete#force_omni_input_patterns')
+let g:neocomplete#force_omni_input_patterns = {}
+endif
