@@ -40,7 +40,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'Shougo/neocomplete.vim'
 "... Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
@@ -245,6 +244,7 @@ set colorcolumn=81,101
 set cino=N-s,:0,l1,g0
 
 au BufNewFile,BufRead cpp set filetype=cpp
+au BufNewFile,BufRead *.tex cal LongLines()
 
 " Quickfix window variable Height
 au FileType qf call AdjustWindowHeight(3, 20)
@@ -256,19 +256,3 @@ map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpenAutoClose<CR>/
 let g:tagbar_sort = 0
 
-"  ======= neocomplete
-let g:neocomplete#enable_at_startup = 1
-" Use smartcase.
-let g:neocomplete#enable_smart_case = 1
-" Set minimum syntax keyword length.
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-" AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-if !exists('g:neocomplete#force_omni_input_patterns')
-let g:neocomplete#force_omni_input_patterns = {}
-endif
