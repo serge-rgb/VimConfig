@@ -28,7 +28,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-speeddating'
 Plugin 'surround.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'TagHighlight'
+Plugin 'xolox/vim-misc'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'YankRing.vim'
 Plugin 'justinmk/vim-gtfo'
@@ -38,6 +38,7 @@ Plugin 'a.vim'
 Plugin 'kien/ctrlp.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
+Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 "... Random lang support
@@ -50,7 +51,7 @@ Plugin 'tpope/vim-markdown'
 "==== Rainbows
 Plugin 'chriskempson/base16-vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'lsdr/monokai'
+Plugin 'tomasr/molokai'
 Plugin 'jnurmine/Zenburn.git'
 Plugin 'reedes/vim-colors-pencil'
 
@@ -100,11 +101,14 @@ function! LongLines()
     noremap j gj
     noremap k gk
 endfunction
+" Formats where LongLines gets called automatically.
+au BufNewFile,BufRead *.txt call LongLines()
+au BufNewFile,BufRead *.md call LongLines()
 
 " Pretty syntax.
 function! Index()
     silent ! ctags -R .
-    UpdateTypesFile
+    UpdateTypesFileOnly
     ClearCtrlPCache
 endfunction
 
@@ -237,6 +241,10 @@ func! UseGrep()
     set grepprg=grep\ -n\ $*\ /dev/null
 endf
 
+" Easy tags config.
+set tags=./tags;
+let g:easytags_dynamic_files = 1
+
 " C++ style
 set colorcolumn=81,101
 " No namespace indent, no indent for case, unindent label block, no indent for
@@ -245,7 +253,7 @@ set cino=N-s,:0,l1,g0
 
 au BufNewFile,BufRead cpp set filetype=cpp
 au BufNewFile,BufRead *.tex cal LongLines()
-
+syntax keyword Type uint8
 " Quickfix window variable Height
 au FileType qf call AdjustWindowHeight(3, 20)
 function! AdjustWindowHeight(minheight, maxheight)

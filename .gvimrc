@@ -15,20 +15,19 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    colorscheme solarized
+    " colorscheme solarized
     " colorscheme zenburn
-    " colorscheme monokai
+    let g:molokai_original=1
+    colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
 
     " some themes set column highlight to ugly colors
 
-    " highlight ColorColumn guibg=Black
 
     " set background=dark
     " set background=light
 
-    cal SetDayColor() " defined in vimrc
 
     map <M-o> :CommandT<CR>
     if has("win32")
@@ -44,6 +43,7 @@ if has("gui_running")
             endif
         endif
     endif
+
 endif
 
 if has("gui_macvim")
@@ -52,3 +52,4 @@ if has("gui_macvim")
     map <D-o> :CommandT<CR>
 endif
 
+highlight ColorColumn guibg=Gray41
