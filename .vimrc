@@ -22,38 +22,37 @@ Plugin 'gmarik/Vundle.vim'
 
 "==== Vim editing steroids
 Plugin 'Auto-Pairs'
-Plugin 'tpope/vim-commentary'
 Plugin 'bling/vim-airline'
+Plugin 'godlygeek/tabular'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'justinmk/vim-gtfo'
+Plugin 'surround.vim'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-speeddating'
-Plugin 'surround.vim'
-Plugin 'godlygeek/tabular'
 Plugin 'xolox/vim-misc'
-Plugin 'Lokaltog/vim-easymotion'
 Plugin 'YankRing.vim'
-Plugin 'justinmk/vim-gtfo'
 
 "==== IDE stuff
 Plugin 'a.vim'
 Plugin 'kien/ctrlp.vim'
-Plugin 'tpope/vim-fugitive'
-Plugin 'scrooloose/nerdtree'
-Plugin 'xolox/vim-easytags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
+Plugin 'scrooloose/nerdtree'
+Plugin 'tpope/vim-fugitive'
+Plugin 'xolox/vim-easytags'
 "... Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
-"... Latex crap
-" Plugin 'git://git.code.sf.net/p/vim-latex/vim-latex'
 
 "==== Rainbows
-Plugin 'chriskempson/base16-vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'tomasr/molokai'
+Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
 Plugin 'reedes/vim-colors-pencil'
+Plugin 'tomasr/molokai'
 
 call vundle#end()
 
@@ -88,6 +87,7 @@ set nowritebackup
 
 set wildmenu " command line completion
 set nonumber  " don't show line numbers
+set relativenumber  " show line numbers realtive to cursor.
 
 " For writing prose
 function! LongLines()
@@ -104,11 +104,12 @@ endfunction
 " Formats where LongLines gets called automatically.
 au BufNewFile,BufRead *.txt call LongLines()
 au BufNewFile,BufRead *.md call LongLines()
+au BufNewFile,BufRead *.lex call LongLines()
+au BufNewFile,BufRead *.tex cal LongLines()
 
 " Pretty syntax.
 function! Index()
     silent ! ctags -R .
-    UpdateTypesFileOnly
     ClearCtrlPCache
 endfunction
 
@@ -180,9 +181,6 @@ noremap <leader>s :w<cr>
 noremap <C-Tab> :A<cr>
 inoremap <C-Tab> <esc>:A<cr>
 
-" Change directory to current file.
-nmap <leader>d :cd %:p:h<cr>
-
 " Ctrl-w is cumbersome
 noremap <leader>w <C-w>
 
@@ -230,7 +228,7 @@ noremap <S-F10> :cclose<cr>
 inoremap <S-F10> :cclose<cr>
 
 " Don't mess with my window. Use buffer in already open tab. Otherwise, split
-set switchbuf+=usetab,split
+set switchbuf+=usetab
 
 set makeprg=build
 
@@ -251,8 +249,14 @@ set colorcolumn=81,101
 " public, private in classes
 set cino=N-s,:0,l1,g0
 
+
+"Crazy C stuff
+
+"  Use vim-unimpaired to turn current line into a print statement
+map <leader>o V[yyss"yss)iprintf,,;
+
 au BufNewFile,BufRead cpp set filetype=cpp
-au BufNewFile,BufRead *.tex cal LongLines()
+
 syntax keyword Type uint8
 " Quickfix window variable Height
 au FileType qf call AdjustWindowHeight(3, 20)

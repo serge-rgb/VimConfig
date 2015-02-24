@@ -24,7 +24,6 @@ if has("gui_running")
 
     " some themes set column highlight to ugly colors
 
-
     " set background=dark
     " set background=light
 
@@ -52,4 +51,4 @@ if has("gui_macvim")
     map <D-o> :CommandT<CR>
 endif
 
-highlight ColorColumn guibg=Gray41
+highlight ColorColumn guibg=Gray20
