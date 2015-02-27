@@ -46,6 +46,7 @@ Plugin 'xolox/vim-easytags'
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
+Plugin 'dag/vim2hs'
 
 "==== Rainbows
 Plugin 'altercation/vim-colors-solarized'
@@ -129,10 +130,10 @@ set incsearch
 set ignorecase
 set smartcase
 
+set tabstop=8
 set expandtab
-set shiftwidth=4
-set tabstop=4
 set softtabstop=4
+set shiftwidth=4
 
 set nobackup
 set noswapfile
