@@ -46,7 +46,7 @@ Plugin 'xolox/vim-easytags'
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
-Plugin 'dag/vim2hs'
+Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
 Plugin 'altercation/vim-colors-solarized'
@@ -231,8 +231,6 @@ inoremap <S-F10> :cclose<cr>
 " Don't mess with my window. Use buffer in already open tab. Otherwise, split
 set switchbuf+=usetab
 
-set makeprg=build
-
 func! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*
 endf
@@ -257,6 +255,22 @@ set cino=N-s,:0,l1,g0
 map <leader>o V[yyss"yss)iprintf,,;
 
 au BufNewFile,BufRead cpp set filetype=cpp
+au BufNewFile,BufRead cpp set makeprg=build
+
+
+
+" Haskell stuff
+let g:easytags_languages = {
+\   'haskell': {
+\     'cmd': 'hasktags',
+\       'args': [],
+\       'fileoutput_opt': '-f',
+\       'stdout_opt': '-f-',
+\       'recurse_flag': '-R'
+\   }
+\}
+
+au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
 syntax keyword Type uint8
 " Quickfix window variable Height
