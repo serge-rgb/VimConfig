@@ -254,9 +254,9 @@ set cino=N-s,:0,l1,g0
 "  Use vim-unimpaired to turn current line into a print statement
 map <leader>o V[yyss"yss)iprintf,,;
 
-au BufNewFile,BufRead cpp set filetype=cpp
-au BufNewFile,BufRead cpp set makeprg=build
-
+au BufNewFile,BufRead *.cpp,*.cc    set filetype=cpp
+au BufNewFile,BufRead *.cpp,*.cc    set makeprg=build
+au BufNewFile,BufRead *.c,*.h       set makeprg=build
 
 
 " Haskell stuff

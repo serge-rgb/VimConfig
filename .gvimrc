@@ -15,10 +15,10 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    " colorscheme solarized
+    colorscheme solarized
     " colorscheme zenburn
-    let g:molokai_original=1
-    colorscheme molokai
+    " let g:molokai_original=1
+    " colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
 
@@ -51,4 +51,4 @@ if has("gui_macvim")
     map <D-o> :CommandT<CR>
 endif
 
-highlight ColorColumn guibg=Gray20
+"highlight ColorColumn guibg=Gray20
