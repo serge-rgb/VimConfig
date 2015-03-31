@@ -36,6 +36,7 @@ Plugin 'YankRing.vim'
 
 "==== IDE stuff
 Plugin 'a.vim'
+Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
@@ -50,10 +51,11 @@ Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'chriskempson/base16-vim'
+" Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
-Plugin 'reedes/vim-colors-pencil'
+" Plugin 'reedes/vim-colors-pencil'
 Plugin 'tomasr/molokai'
+
 
 call vundle#end()
 
@@ -78,7 +80,7 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 au BufNewFile,BufRead *.glsl set filetype=glsl430
 au BufNewFile,BufRead *.cl set filetype=opencl
 
-au BufNewFile * set ff=unix
+" au BufNewFile * set ff=unix
 
 " Hide buffers, don't close them
 set hidden

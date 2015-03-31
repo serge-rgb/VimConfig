@@ -15,8 +15,8 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    colorscheme solarized
     " colorscheme zenburn
+    colorscheme solarized
     " let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
