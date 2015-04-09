@@ -31,7 +31,6 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-speeddating'
-Plugin 'xolox/vim-misc'
 Plugin 'YankRing.vim'
 
 "==== IDE stuff
@@ -42,7 +41,7 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
-Plugin 'xolox/vim-easytags'
+Plugin 'abudden/taghighlight-automirror'
 "... Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'petRUShka/vim-opencl'
@@ -114,6 +113,7 @@ au BufNewFile,BufRead *.tex cal LongLines()
 function! Index()
     silent ! ctags -R .
     ClearCtrlPCache
+    :UpdateTypesFile
 endfunction
 
 " Personal log
@@ -240,9 +240,7 @@ func! UseGrep()
     set grepprg=grep\ -n\ $*\ /dev/null
 endf
 
-" Easy tags config.
 set tags=./tags;
-let g:easytags_dynamic_files = 1
 
 " C++ style
 set colorcolumn=81,101
@@ -262,16 +260,6 @@ au BufNewFile,BufRead *.c,*.h       set makeprg=build
 
 
 " Haskell stuff
-let g:easytags_languages = {
-\   'haskell': {
-\     'cmd': 'hasktags',
-\       'args': [],
-\       'fileoutput_opt': '-f',
-\       'stdout_opt': '-f-',
-\       'recurse_flag': '-R'
-\   }
-\}
-
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
 syntax keyword Type uint8

@@ -17,7 +17,7 @@ if has("gui_running")
 
     " colorscheme zenburn
     colorscheme solarized
-    " let g:molokai_original=1
+    let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
