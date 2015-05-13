@@ -89,7 +89,7 @@ set nowritebackup
 
 set wildmenu " command line completion
 set nonumber  " don't show line numbers
-set relativenumber  " show line numbers realtive to cursor.
+"set relativenumber  " show line numbers realtive to cursor.
 
 " For writing prose
 function! LongLines()
@@ -156,12 +156,14 @@ function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
-if hour >= 15 or hour < 8:
+if hour < 8 or hour >= 15:
     vim.command("set background=dark\n")
 else:
     vim.command("set background=light\n")
 EOF
 endfunction
+
+cal SetDayColor()  " Call it at runtime.
 
 let mapleader=','
 
