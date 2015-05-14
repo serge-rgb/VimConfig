@@ -54,6 +54,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn.git'
 " Plugin 'reedes/vim-colors-pencil'
 Plugin 'tomasr/molokai'
+Plugin 'zefei/vim-colortuner'
 
 
 call vundle#end()
@@ -113,6 +114,7 @@ au BufNewFile,BufRead *.tex cal LongLines()
 function! Index()
     silent ! ctags -R .
     ClearCtrlPCache
+    CtrlPClearCache
     :UpdateTypesFile
 endfunction
 
@@ -164,6 +166,9 @@ EOF
 endfunction
 
 cal SetDayColor()  " Call it at runtime.
+
+" Set vim-colortuner config to persist in Dropbox folder.
+let g:colortuner_filepath = '~/_vim-colortuner'
 
 let mapleader=','
 
