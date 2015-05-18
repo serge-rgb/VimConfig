@@ -1,4 +1,6 @@
 filetype on
+set nocompatible
+
 if has("win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
 else
@@ -66,10 +68,10 @@ set history=1024  " Lines of history
 filetype plugin on
 filetype indent on
 
-if has('win32')
-    let $TMP="C:/tmp" " This should exist...
-    set shellslash
-endif
+"if has('win32')
+    "let $TMP="C:/tmp" " This should exist...
+    "set shellslash
+"endif
 
 set autoread  " Reload when I modify the file elsewhere.
 
@@ -143,7 +145,6 @@ set shiftwidth=4
 set nobackup
 set noswapfile
 
-set nocompatible
 set laststatus=2 "Always display status line
 set encoding=utf-8
 set cmdheight=2 " avoid hit-enter promts
