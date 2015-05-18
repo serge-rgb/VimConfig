@@ -1,6 +1,12 @@
 filetype on
 set nocompatible
 
+" Setup notes:
+"   (git should be installed)
+"   git clone https://github.com/gmarik/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+"   or (windows): (needs curl script. see vundle site.)
+"   git clone https://github.com/gmarik/Vundle.vim.git ~/vimfiles/bundle/Vundle.vim
+
 if has("win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
 else
