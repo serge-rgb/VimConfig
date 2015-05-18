@@ -28,8 +28,9 @@ Plugin 'Lokaltog/vim-easymotion'
 Plugin 'justinmk/vim-gtfo'
 Plugin 'surround.vim'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sleuth'   " Auto-set indentation settings
 Plugin 'tpope/vim-speeddating'
 Plugin 'YankRing.vim'
 
@@ -50,7 +51,7 @@ Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
 Plugin 'altercation/vim-colors-solarized'
-" Plugin 'chriskempson/base16-vim'
+Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
 " Plugin 'reedes/vim-colors-pencil'
 Plugin 'tomasr/molokai'
@@ -165,7 +166,7 @@ else:
 EOF
 endfunction
 
-cal SetDayColor()  " Call it at runtime.
+"cal SetDayColor()  " Call it at runtime.
 
 " Set vim-colortuner config to persist in Dropbox folder.
 let g:colortuner_filepath = '~/_vim-colortuner'

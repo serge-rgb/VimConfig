@@ -27,7 +27,6 @@ if has("gui_running")
     " set background=dark
     " set background=light
 
-
     map <M-o> :CommandT<CR>
     if has("win32")
         set guifont=Consolas:h10
