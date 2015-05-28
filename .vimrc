@@ -53,17 +53,17 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'abudden/taghighlight-automirror'
 "... Random lang support
 Plugin 'beyondmarc/glsl.vim'
-Plugin 'petRUShka/vim-opencl'
 Plugin 'tpope/vim-markdown'
-Plugin 'raichoo/haskell-vim'
+" Plugin 'petRUShka/vim-opencl'
+" Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
+" Plugin 'chriskempson/base16-vim'
 " Plugin 'reedes/vim-colors-pencil'
-Plugin 'tomasr/molokai'
-Plugin 'zefei/vim-colortuner'
+" Plugin 'tomasr/molokai'
+" Plugin 'zefei/vim-colortuner'
 
 
 call vundle#end()
@@ -74,10 +74,7 @@ set history=1024  " Lines of history
 filetype plugin on
 filetype indent on
 
-"if has('win32')
-    "let $TMP="C:/tmp" " This should exist...
-    "set shellslash
-"endif
+set shellslash   " Always forward slashes.
 
 set autoread  " Reload when I modify the file elsewhere.
 
