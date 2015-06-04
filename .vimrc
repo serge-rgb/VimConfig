@@ -127,6 +127,9 @@ endfunction
 " Personal log
 func! OpenLog()
     e ~/Dropbox/log.txt
+    if has("gui_running")
+      set columns=53
+    endif
 endf
 
 " Highlight current line.
