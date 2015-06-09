@@ -260,9 +260,8 @@ set tags=./tags;
 " C++ style
 set colorcolumn=81,101
 " No namespace indent, no indent for case, unindent label block, no indent for
-" public, private in classes
-set cino=N-s,:0,l1,g0
-
+" public, private in classes, no indent inside if/func parameters
+set cino=N-s,:0,l1,g0,(0
 
 "Crazy C stuff
 
