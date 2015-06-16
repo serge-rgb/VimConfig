@@ -35,6 +35,7 @@ Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'justinmk/vim-gtfo'
 Plugin 'surround.vim'
+Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'tpope/vim-repeat'
