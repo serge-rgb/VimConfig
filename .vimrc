@@ -49,6 +49,7 @@ Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'abudden/taghighlight-automirror'
@@ -112,10 +113,10 @@ function! LongLines()
     noremap k gk
 endfunction
 " Formats where LongLines gets called automatically.
-au BufNewFile,BufRead *.txt call LongLines()
-au BufNewFile,BufRead *.md call LongLines()
-au BufNewFile,BufRead *.lex call LongLines()
-au BufNewFile,BufRead *.tex cal LongLines()
+" au BufNewFile,BufRead *.txt call LongLines()
+" au BufNewFile,BufRead *.md call LongLines()
+" au BufNewFile,BufRead *.lex call LongLines()
+" au BufNewFile,BufRead *.tex cal LongLines()
 
 " Pretty syntax.
 function! Index()
@@ -227,6 +228,8 @@ noremap <leader>g g<C-]>
 inoremap <leader>g g<C-]>
 
 "Make
+imap <F1> <esc>
+nmap <F1> <esc>
 noremap <F5> :wa<esc>:make<cr><cr>:botright cw<cr>
 inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
@@ -241,10 +244,14 @@ noremap <F8> :cnext<cr>
 noremap <F9> :crewind<cr>
 inoremap <F8> :cnext<cr>
 inoremap <F9> :crewind<cr>
+" Open/close quickfix window
 noremap <F10> :botright cope<cr>
 inoremap <F10> :botright cope<cr>
 noremap <S-F10> :cclose<cr>
 inoremap <S-F10> :cclose<cr>
+" Show definition in another window
+imap <F12> <leader>w<C-]>
+nmap <F12> <leader>w<C-]>
 
 " Don't mess with my window. Use buffer in already open tab. Otherwise, split
 set switchbuf+=usetab
@@ -259,10 +266,12 @@ endf
 set tags=./tags;
 
 " C++ style
-set colorcolumn=81,101
+"set colorcolumn=81,101
+set colorcolumn=101
 " No namespace indent, no indent for case, unindent label block, no indent for
-" public, private in classes, no indent inside if/func parameters
-set cino=N-s,:0,l1,g0,(0
+" public, private in classes, no indent inside if/func parameters, extra
+" indent for expression newlines
+set cino=N-s,:0,l1,g0,(0,+8
 
 "Crazy C stuff
 
@@ -284,7 +293,16 @@ function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
+
+" Supertab. Go from top to bottom
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
 map <f3> :TagbarToggle<CR>
 map <C-l> :TagbarOpenAutoClose<CR>/
 let g:tagbar_sort = 0
+
+" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
