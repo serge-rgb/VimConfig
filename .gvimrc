@@ -16,11 +16,11 @@ if has("gui_running")
     hi link TagbarSignature Statement
 
     " colorscheme zenburn
-    colorscheme solarized
+    " colorscheme solarized
     let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
-    " colorscheme base16-google
+    colorscheme base16-google
 
     " some themes set column highlight to ugly colors
 

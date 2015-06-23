@@ -62,7 +62,7 @@ Plugin 'tpope/vim-markdown'
 "==== Rainbows
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn.git'
-" Plugin 'chriskempson/base16-vim'
+Plugin 'chriskempson/base16-vim'
 " Plugin 'reedes/vim-colors-pencil'
 " Plugin 'tomasr/molokai'
 " Plugin 'zefei/vim-colortuner'
@@ -134,6 +134,27 @@ func! OpenLog()
     endif
 endf
 
+" Called at vim startup
+function! SetDayColor()
+python << EOF
+import vim, time
+hour = time.localtime().tm_hour
+if hour < 8 or hour >= 15:
+    vim.command("set background=dark\n")
+else:
+    vim.command("set background=light\n")
+EOF
+endfunction
+
+cal SetDayColor()  " Call it at startup.
+
+function! Maximize()
+    if has("gui_running") && has('win32')
+        simalt ~x
+    endif
+    " TODO: linux & max
+endfunction
+
 " Highlight current line.
 set cursorline
 
@@ -162,20 +183,6 @@ let g:AutoPairsFlyMode=0
 
 noremap <F2> :NERDTreeToggle<cr>
 let g:ctrlp_working_path_mode = 0
-
-" Called at vim startup
-function! SetDayColor()
-python << EOF
-import vim, time
-hour = time.localtime().tm_hour
-if hour < 8 or hour >= 15:
-    vim.command("set background=dark\n")
-else:
-    vim.command("set background=light\n")
-EOF
-endfunction
-
-"cal SetDayColor()  " Call it at runtime.
 
 " Set vim-colortuner config to persist in Dropbox folder.
 let g:colortuner_filepath = '~/_vim-colortuner'
