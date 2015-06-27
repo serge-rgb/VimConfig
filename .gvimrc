@@ -4,6 +4,8 @@ if has("gui_running")
     " Remove scrobars:
     set guioptions-=r
     set guioptions-=L
+    " No menu
+    set guioptions-=m
     " No bells
     "
     set noerrorbells
