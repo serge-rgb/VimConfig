@@ -24,11 +24,6 @@ if has("gui_running")
     " colorscheme pencil
     colorscheme base16-google
 
-    " some themes set column highlight to ugly colors
-
-    " set background=dark
-    " set background=light
-
     map <M-o> :CommandT<CR>
     if has("win32")
         set guifont=Consolas:h10
