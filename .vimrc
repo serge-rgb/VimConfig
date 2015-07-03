@@ -129,6 +129,7 @@ endfunction
 " Personal log
 func! OpenLog()
     e ~/Dropbox/log.txt
+    cd ~/Dropbox/txt
     if has("gui_running")
       set columns=53
     endif
@@ -212,6 +213,10 @@ inoremap <C-Tab> <esc>:A<cr>
 " Ctrl-w is cumbersome
 noremap <leader>w <C-w>
 
+" Vim has Alt mapping bugs. Change autopair
+noremap <C-space> <esc>:call AutoPairsJump()<cr>
+inoremap <C-space> <esc>:call AutoPairsJump()<cr>
+
 " ==== Insert mode mappings.
 " Emacs style
 inoremap <C-e> <esc>A
@@ -283,13 +288,9 @@ set cino=N-s,:0,l1,g0,(0,+8
 
 "Crazy C stuff
 
-"  Use vim-unimpaired to turn current line into a print statement
-map <leader>o V[yyss"yss)iprintf,,;
-
 au BufNewFile,BufRead *.cpp,*.cc    set filetype=cpp
 au BufNewFile,BufRead *.cpp,*.cc    set makeprg=build
 au BufNewFile,BufRead *.c,*.h       set makeprg=build
-
 
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
