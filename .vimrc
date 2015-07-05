@@ -215,7 +215,7 @@ noremap <leader>w <C-w>
 
 " Vim has Alt mapping bugs. Change autopair
 noremap <C-space> <esc>:call AutoPairsJump()<cr>
-inoremap <C-space> <esc>:call AutoPairsJump()<cr>
+inoremap <C-space> <esc>:call AutoPairsJump()<cr>a
 
 " ==== Insert mode mappings.
 " Emacs style
