@@ -13,7 +13,6 @@ if has("gui_running")
     set t_vb=
     autocmd! GUIEnter * set vb t_vb=
 
-
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
@@ -22,7 +21,8 @@ if has("gui_running")
     let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
-    colorscheme base16-google
+    " colorscheme base16-google
+    colorscheme base16-monokai
 
     map <M-o> :CommandT<CR>
     if has("win32")
@@ -34,8 +34,8 @@ if has("gui_running")
             if has("macunix")
                 set guifont=Monaco:h11
             else
-                set guifont=Ubuntu\ Mono\ 12
-                " set guifont=DejaVu\ Sans\ Mono\ 10
+                " set guifont=Ubuntu\ Mono\ 12
+                set guifont=DejaVu\ Sans\ Mono\ 10
             endif
         endif
     endif

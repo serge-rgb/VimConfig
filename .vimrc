@@ -151,10 +151,13 @@ endfunction
 cal SetDayColor()  " Call it at startup.
 
 function! Maximize()
-    if has("gui_running") && has('win32')
+    if has("gui_running")
+      if has('win32')
         simalt ~x
+      endif
+      if has('unix')
+      endif
     endif
-    " TODO: linux & max
 endfunction
 
 " Highlight current line.
@@ -288,9 +291,15 @@ set cino=N-s,:0,l1,g0,(0,+8
 
 "Crazy C stuff
 
-au BufNewFile,BufRead *.cpp,*.cc    set filetype=cpp
-au BufNewFile,BufRead *.cpp,*.cc    set makeprg=build
-au BufNewFile,BufRead *.c,*.h       set makeprg=build
+if has('win32')
+  au BufNewFile,BufRead *.cpp,*.cc    set filetype=cpp
+  au BufNewFile,BufRead *.cpp,*.cc    set makeprg=build
+  au BufNewFile,BufRead *.c,*.h       set makeprg=build
+el
+  if has('unix')
+    set makeprg=./build.sh
+  endif
+endif
 
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
