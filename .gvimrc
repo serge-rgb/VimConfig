@@ -23,6 +23,7 @@ if has("gui_running")
     " colorscheme pencil
     " colorscheme base16-google
     colorscheme base16-monokai
+    set background=dark
 
     map <M-o> :CommandT<CR>
     if has("win32")
