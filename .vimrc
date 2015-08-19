@@ -189,14 +189,14 @@ let g:AutoPairsFlyMode=0
 noremap <F2> :NERDTreeToggle<cr>
 let g:ctrlp_working_path_mode = 0
 
-" Set vim-colortuner config to persist in Dropbox folder.
-let g:colortuner_filepath = '~/_vim-colortuner'
-
 let mapleader=','
 
 " Remapping for YankRing
 let g:yankring_replace_n_pkey = "<leader>p"
 let g:yankring_replace_n_nkey = "<leader>n"
+
+" F4 for repeat macro
+noremap <F4> @@
 
 " CtrlP config.
 noremap <leader>b :CtrlPBuffer<cr>
