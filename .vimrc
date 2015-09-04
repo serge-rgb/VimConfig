@@ -252,7 +252,7 @@ noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 " Silver Searcher
 " -U ignores .gitignore et al. Should have .agignore to filter crap
-let g:ackprg = 'ag --nocolor --column -U'
+let g:ackprg = 'ag --nocolor --column'
 noremap <F7> :Ack <C-r><C-w><cr>
 inoremap <F7> :Ack <C-r><C-w><cr>
 " Go through errors in cwind
