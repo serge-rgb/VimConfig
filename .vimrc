@@ -39,7 +39,6 @@ Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-sleuth'   " Auto-set indentation settings
 Plugin 'tpope/vim-speeddating'
 Plugin 'YankRing.vim'
 
@@ -126,6 +125,16 @@ function! Index()
     :UpdateTypesFile
 endfunction
 
+" Text directory
+func! GotoText()
+  cd ~/Dropbox/txt
+  if has('win32')
+    set guifont=DejaVu_Sans_Mono:h14
+  endif
+  cal LongLines()
+endf
+
+
 " Personal log
 func! OpenLog()
     e ~/Dropbox/log.txt
@@ -171,10 +180,11 @@ set incsearch
 set ignorecase
 set smartcase
 
-set tabstop=8
+" ==== My default indent setup.
 set expandtab
-set softtabstop=4
 set shiftwidth=4
+set tabstop=8
+set softtabstop=0
 
 set nobackup
 set noswapfile
