@@ -110,6 +110,9 @@ function! LongLines()
     "Remap j and k to be visual
     noremap j gj
     noremap k gk
+    if has('win32')
+        set guifont=DejaVu_Sans_Mono:h13
+    endif
 endfunction
 " Formats where LongLines gets called automatically.
 " au BufNewFile,BufRead *.txt call LongLines()
@@ -128,9 +131,6 @@ endfunction
 " Text directory
 func! GotoText()
   cd ~/Dropbox/txt
-  if has('win32')
-    set guifont=DejaVu_Sans_Mono:h14
-  endif
   cal LongLines()
 endf
 
