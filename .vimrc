@@ -142,7 +142,6 @@ func! OpenLog()
     if has("gui_running")
       set columns=53
     endif
-    cal LongLines()
 endf
 
 " Called at vim startup
@@ -150,7 +149,7 @@ function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
-if hour < 8 or hour >= 17:
+if hour < 8 or hour >= 16:
     vim.command("set background=dark\n")
 else:
     vim.command("set background=light\n")
