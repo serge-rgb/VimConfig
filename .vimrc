@@ -9,10 +9,8 @@ set nocompatible
 
 if has("win32")
     set rtp+=~/vimfiles/bundle/Vundle.vim
-else
-    if has("unix")
-        set rtp+=~/.vim/bundle/Vundle.vim/
-    endif
+elseif has("unix")
+    set rtp+=~/.vim/bundle/Vundle.vim/
 endif
 
 
@@ -63,7 +61,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn.git'
 Plugin 'chriskempson/base16-vim'
 " Plugin 'reedes/vim-colors-pencil'
-" Plugin 'tomasr/molokai'
+Plugin 'tomasr/molokai'
 " Plugin 'zefei/vim-colortuner'
 
 
@@ -294,21 +292,33 @@ set tags=./tags;
 "set colorcolumn=81,101
 set colorcolumn=101
 " No namespace indent, no indent for case, unindent label block, no indent for
-" public, private in classes, no indent inside if/func parameters, extra
-" indent for expression newlines
+" public, private in classes
 set cino=N-s,:0,l1,g0,(0,+8
 
 "Crazy C stuff
+"
+function SergeCSetup()
+    if has('win32')
+        set makeprg=build
+    elseif has('unix')
+            set makeprg=./build.sh
+    endif
 
-if has('win32')
-  au BufNewFile,BufRead *.cpp,*.cc    set filetype=cpp
-  au BufNewFile,BufRead *.cpp,*.cc    set makeprg=build
-  au BufNewFile,BufRead *.c,*.h       set makeprg=build
-el
-  if has('unix')
-    set makeprg=./build.sh
-  endif
-endif
+
+    " ==== For when Taghighlight dies...
+    " Highlight all function names
+    " syntax match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
+    " highlight def link cCustomFunc Function
+
+    " " Common types
+    " syn keyword sergeType u8 i8 u16 i16 u32 i32 u64 i64
+    " syn keyword sergeType f32 f64
+    " syn keyword sergeType b32
+    " hi def link sergeType Type
+endfunction
+
+au BufNewFile,BufRead *.cpp,*.cc    call SergeCSetup()
+au BufNewFile,BufRead *.c,*.h       call SergeCSetup()
 
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
@@ -317,7 +327,7 @@ syntax keyword Type uint8
 " Quickfix window variable Height
 au FileType qf call AdjustWindowHeight(3, 20)
 function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
 
 
@@ -333,3 +343,59 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+" ------------------------------------------------------------
+"  GUI
+" ------------------------------------------------------------
+
+if has("gui_running")
+    set lines=60 columns=120
+    set guioptions-=T "No toolbar
+    " Remove scrobars:
+    set guioptions-=r
+    set guioptions-=L
+    " No menu
+    set guioptions-=m
+    " No bells
+    "
+    set noerrorbells
+    set novisualbell
+    set t_vb=
+    autocmd! GUIEnter * set vb t_vb=
+
+    " Tagbar signature highlighting sucks
+    hi link TagbarSignature Statement
+
+    colorscheme zenburn
+    "colorscheme solarized
+    let g:molokai_original=1
+    " colorscheme molokai
+    " colorscheme pencil
+    " colorscheme base16-google
+    " colorscheme base16-monokai
+    " set background=dark
+
+    map <M-o> :CommandT<CR>
+    if has("win32")
+"        set guifont=Consolas:h10
+        set guifont=DejaVu_Sans_Mono:h10:cANSI
+        set enc=utf-8
+    else
+        if has("unix")
+            if has("macunix")
+                set guifont=Monaco:h11
+            else
+                " set guifont=Ubuntu\ Mono\ 12
+                set guifont=DejaVu\ Sans\ Mono\ 10
+            endif
+        endif
+    endif
+
+endif
+
+if has("gui_macvim")
+    macm File.Open\.\.\. key=<nop>
+    macmenu &File.New\ Tab key=<nop>
+    map <D-o> :CommandT<CR>
+endif
+
+"highlight ColorColumn guibg=Gray20
