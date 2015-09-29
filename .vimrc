@@ -50,18 +50,19 @@ Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'abudden/taghighlight-automirror'
-"... Random lang support
+
+"==== Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'tpope/vim-markdown'
 " Plugin 'petRUShka/vim-opencl'
 " Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'jnurmine/Zenburn.git'
-Plugin 'chriskempson/base16-vim'
+" Plugin 'altercation/vim-colors-solarized'
+" Plugin 'chriskempson/base16-vim'
 " Plugin 'reedes/vim-colors-pencil'
-Plugin 'tomasr/molokai'
+" Plugin 'tomasr/molokai'
 " Plugin 'zefei/vim-colortuner'
 
 
@@ -154,7 +155,7 @@ else:
 EOF
 endfunction
 
-cal SetDayColor()  " Call it at startup.
+" cal SetDayColor()  " Call it at startup.
 
 function! Maximize()
     if has("gui_running")
@@ -382,7 +383,8 @@ if has("gui_running")
     else
         if has("unix")
             if has("macunix")
-                set guifont=Monaco:h11
+                "set guifont=Monaco:h11
+                set guifont=DejaVu_Sans_Mono:h11
             else
                 " set guifont=Ubuntu\ Mono\ 12
                 set guifont=DejaVu\ Sans\ Mono\ 10
