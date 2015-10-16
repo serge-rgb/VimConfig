@@ -110,7 +110,7 @@ function! LongLines()
     noremap j gj
     noremap k gk
     if has('win32')
-        set guifont=DejaVu_Sans_Mono:h13
+        set guifont=DejaVu_Sans_Mono:h12
     endif
 endfunction
 " Formats where LongLines gets called automatically.
@@ -179,13 +179,20 @@ set ignorecase
 set smartcase
 
 " ==== My default indent setup.
-set expandtab
-set shiftwidth=4
-set tabstop=8
-set softtabstop=4
+function! SetSergeCodeStyle()
+    set expandtab
+    set shiftwidth=4
+    set tabstop=8
+    set softtabstop=4
+    set nowrap
+endfunction
+
+" Set my style by default at startup
+cal SetSergeCodeStyle()
 
 set nobackup
 set noswapfile
+
 
 set laststatus=2 "Always display status line
 set encoding=utf-8
@@ -289,21 +296,21 @@ endf
 
 set tags=./tags;
 
-" C++ style
-"set colorcolumn=81,101
-set colorcolumn=101
-" No namespace indent, no indent for case, unindent label block, no indent for
-" public, private in classes
-set cino=N-s,:0,l1,g0,(0,+8
-
 "Crazy C stuff
 "
-function SergeCSetup()
+function! SergeCSetup()
     if has('win32')
         set makeprg=build
     elseif has('unix')
             set makeprg=./build.sh
     endif
+
+    " C++ style
+    " set colorcolumn=81,101
+    " set colorcolumn=101
+    " No namespace indent, no indent for case, unindent label block, no indent for
+    " public, private in classes
+    set cino=N-s,:0,l1,g0,(0,+8
 
 
     " ==== For when Taghighlight dies...
