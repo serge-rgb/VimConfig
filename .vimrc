@@ -59,9 +59,9 @@ Plugin 'tpope/vim-markdown'
 
 "==== Rainbows
 Plugin 'jnurmine/Zenburn.git'
-" Plugin 'altercation/vim-colors-solarized'
-" Plugin 'chriskempson/base16-vim'
-" Plugin 'reedes/vim-colors-pencil'
+Plugin 'altercation/vim-colors-solarized'
+"Plugin 'chriskempson/base16-vim'
+"Plugin 'reedes/vim-colors-pencil'
 " Plugin 'tomasr/molokai'
 " Plugin 'zefei/vim-colortuner'
 
@@ -373,8 +373,8 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    colorscheme zenburn
-    "colorscheme solarized
+    "colorscheme zenburn
+    colorscheme solarized
     let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
