@@ -155,7 +155,7 @@ else:
 EOF
 endfunction
 
-" cal SetDayColor()  " Call it at startup.
+cal SetDayColor()  " Call it at startup.
 
 function! Maximize()
     if has("gui_running")
