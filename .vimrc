@@ -69,34 +69,90 @@ Plugin 'altercation/vim-colors-solarized'
 call vundle#end()
 
 
-set backspace=2
-set history=1024  " Lines of history
-filetype plugin on
-filetype indent on
 
-set shellslash   " Always forward slashes.
+" ============================================================
+" ==== Sane vim defaults  ====
+" ============================================================
 
-set autoread  " Reload when I modify the file elsewhere.
+
 
 syntax on
+set backspace=2
+set history=1024    " Lines of history
+filetype plugin on
+filetype indent on
+set shellslash      " Always forward slashes.
+set autoread        " Reload when I modify the file elsewhere.
+set cursorline      " Highlight current line.
 
-" Remove any trailing whitespace that is in the file
-autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
-
-au BufNewFile,BufRead *.glsl set filetype=glsl430
-au BufNewFile,BufRead *.cl set filetype=opencl
-
-" au BufNewFile * set ff=unix
+" search ---
+set hlsearch
+" clear highlight with return
+nnoremap <CR> :noh<cr><cr>
+set incsearch
+set ignorecase
+set smartcase
 
 " Hide buffers, don't close them
 set hidden
-
 set nobackup
 set nowritebackup
+set noswapfile
+set wildmenu        " command line completion
+set laststatus=2    "Always display status line
+set encoding=utf-8
+set cmdheight=2     " avoid hit-enter promts
+" Don't mess with my window. Use buffer in already open tab. Otherwise, split
+set switchbuf+=usetab
 
-set wildmenu " command line completion
-set nonumber  " don't show line numbers
-"set relativenumber  " show line numbers realtive to cursor.
+
+" ============================================================
+" ==== Text edit remaps ====
+" ============================================================
+
+
+
+let mapleader=','
+
+" F4 for repeat macro
+noremap <F4> @@
+" Better than esc. (go to normal mode and save)
+inoremap jj <esc>:w<cr>
+" Go to the end while in insert mode
+inoremap ,, <esc>A
+" Saving
+noremap <leader>s :w<cr>
+" Swap Header/Impl
+noremap <C-Tab> :A<cr>
+inoremap <C-Tab> <esc>:A<cr>
+" Ctrl-w is cumbersome
+noremap <leader>w <C-w>
+" make word Capitalized
+noremap <leader>u ebgUl
+" make word UPPERCASE
+noremap <leader>U gUiw
+" I can never find $ and ^
+noremap <leader>e $
+noremap <leader>a ^
+" better tag jump
+noremap <leader>g g<C-]>
+inoremap <leader>g g<C-]>
+
+" Insert mode ---
+" ... Emacs style
+inoremap <C-e> <esc>A
+inoremap <C-a> <esc>I
+inoremap <C-k> <esc>d$I
+" Ctrl-Backspace should kill a word..
+inoremap <C-BS> <C-W>
+
+
+
+" ============================================================
+" ==== Functions ====
+" ============================================================
+
+
 
 " For writing prose
 function! LongLines()
@@ -113,17 +169,10 @@ function! LongLines()
         set guifont=DejaVu_Sans_Mono:h12
     endif
 endfunction
-" Formats where LongLines gets called automatically.
-" au BufNewFile,BufRead *.txt call LongLines()
-" au BufNewFile,BufRead *.md call LongLines()
-" au BufNewFile,BufRead *.lex call LongLines()
-" au BufNewFile,BufRead *.tex cal LongLines()
 
-" Pretty syntax.
+" Ctags + update tag highlighting
 function! Index()
     silent ! ctags -R .
-    ClearCtrlPCache
-    CtrlPClearCache
     :UpdateTypesFile
 endfunction
 
@@ -132,7 +181,6 @@ func! GotoText()
   cd ~/Dropbox/txt
   cal LongLines()
 endf
-
 
 " Personal log
 func! OpenLog()
@@ -143,7 +191,7 @@ func! OpenLog()
     endif
 endf
 
-" Called at vim startup
+" Set the background based on the time.
 function! SetDayColor()
 python << EOF
 import vim, time
@@ -157,28 +205,7 @@ endfunction
 
 cal SetDayColor()  " Call it at startup.
 
-function! Maximize()
-    if has("gui_running")
-      if has('win32')
-        simalt ~x
-      endif
-      if has('unix')
-      endif
-    endif
-endfunction
-
-" Highlight current line.
-set cursorline
-
-set hlsearch
-" clear highlight with C-k or enter
-nnoremap <C-k> :noh<cr><cr>
-nnoremap <CR> :noh<cr><cr>
-set incsearch
-set ignorecase
-set smartcase
-
-" ==== My default indent setup.
+" My default indent setup.
 function! SetSergeCodeStyle()
     set expandtab
     set shiftwidth=4
@@ -190,75 +217,61 @@ endfunction
 " Set my style by default at startup
 cal SetSergeCodeStyle()
 
-set nobackup
-set noswapfile
+func! UseGitGrep()
+    set grepprg=git\ grep\ -n\ $*
+endf
+func! UseGrep()
+    set grepprg=grep\ -n\ $*\ /dev/null
+endf
 
 
-set laststatus=2 "Always display status line
-set encoding=utf-8
-set cmdheight=2 " avoid hit-enter promts
 
-"Auto-Pairs config
+" ============================================================
+" ==== Plugin Configuration ====
+" ============================================================
+
+
+
+" Auto-Pairs ---
 let g:AutoPairsFlyMode=0
 
+" NERDTree ---
 noremap <F2> :NERDTreeToggle<cr>
+
+" CtrlP  ---
 let g:ctrlp_working_path_mode = 0
-
-let mapleader=','
-
-" Remapping for YankRing
-let g:yankring_replace_n_pkey = "<leader>p"
-let g:yankring_replace_n_nkey = "<leader>n"
-
-" F4 for repeat macro
-noremap <F4> @@
-
 " CtrlP config.
 noremap <leader>b :CtrlPBuffer<cr>
 inoremap <leader>b <esc>:CtrlPBuffer<cr>
 
-" Better than esc. (go to normal mode and save)
-inoremap jj <esc>:w<cr>
-" Go to the end while in insert mode
-inoremap ,, <esc>A
-" Saving
-noremap <leader>s :w<cr>
+" YankRing --- Remapping
+let g:yankring_replace_n_pkey = "<leader>p"
+let g:yankring_replace_n_nkey = "<leader>n"
 
-" Swap Header/Impl
-noremap <C-Tab> :A<cr>
-inoremap <C-Tab> <esc>:A<cr>
 
-" Ctrl-w is cumbersome
-noremap <leader>w <C-w>
-
-" Vim has Alt mapping bugs. Change autopair
+" Autopairs --- Jump outside of scope mapping
 noremap <C-space> <esc>:call AutoPairsJump()<cr>
 inoremap <C-space> <esc>:call AutoPairsJump()<cr>a
 
-" ==== Insert mode mappings.
-" Emacs style
-inoremap <C-e> <esc>A
-inoremap <C-a> <esc>I
-inoremap <C-k> <esc>d$I
+" Supertab --- Go from top to bottom
+let g:SuperTabDefaultCompletionType = "<c-n>"
 
-" Sane stuf
-inoremap <C-BS> <C-W>
+" Tagbar --- mappings
+map <f3> :TagbarToggle<CR>
+map <C-l> :TagbarOpenAutoClose<CR>/
+let g:tagbar_sort = 0
 
-" ==== Text edit improvements
+" Neocomplete
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" make word Capitalized
-noremap <leader>u ebgUl
-" make word UPPERCASE
-noremap <leader>U gUiw
-" I can never find $ and ^
-noremap <leader>e $
-noremap <leader>a ^
 
-" better tag jump
-noremap <leader>g g<C-]>
-inoremap <leader>g g<C-]>
+" ============================================================
+" ==== Quickfix window ====
+" ============================================================
 
-"Make
+
 imap <F1> <esc>
 nmap <F1> <esc>
 noremap <F5> :wa<esc>:make<cr><cr>:botright cw<cr>
@@ -266,7 +279,7 @@ inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 " Silver Searcher
-" -U ignores .gitignore et al. Should have .agignore to filter crap
+" Note: -U ignores .gitignore et al. Should have .agignore to filter crap
 let g:ackprg = 'ag --nocolor --column'
 noremap <F7> :Ack <C-r><C-w><cr>
 inoremap <F7> :Ack <C-r><C-w><cr>
@@ -283,21 +296,16 @@ inoremap <S-F10> :cclose<cr>
 " Show definition in another window
 imap <F12> <leader>w<C-]>
 nmap <F12> <leader>w<C-]>
+" Quickfix window variable Height
+au FileType qf call AdjustWindowHeight(3, 20)
+function! AdjustWindowHeight(minheight, maxheight)
+    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
 
-" Don't mess with my window. Use buffer in already open tab. Otherwise, split
-set switchbuf+=usetab
-
-func! UseGitGrep()
-    set grepprg=git\ grep\ -n\ $*
-endf
-func! UseGrep()
-    set grepprg=grep\ -n\ $*\ /dev/null
-endf
 
 set tags=./tags;
 
-"Crazy C stuff
-"
+" C/C++ stuff
 function! SergeCSetup()
     if has('win32')
         set makeprg=build
@@ -325,35 +333,34 @@ function! SergeCSetup()
     " hi def link sergeType Type
 endfunction
 
+
+
+" ============================================================
+" ==== File defaults (BufRead BufWrite etc) ====
+" ============================================================
+
+
+
+" Remove any trailing whitespace that is in the file
+autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
+
+" filtypes ---
+au BufNewFile,BufRead *.glsl set filetype=glsl430
+au BufNewFile,BufRead *.cl set filetype=opencl
 au BufNewFile,BufRead *.cpp,*.cc    call SergeCSetup()
 au BufNewFile,BufRead *.c,*.h       call SergeCSetup()
-
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
-syntax keyword Type uint8
-" Quickfix window variable Height
-au FileType qf call AdjustWindowHeight(3, 20)
-function! AdjustWindowHeight(minheight, maxheight)
-    exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
+" au BufNewFile * set ff=unix
 
 
-" Supertab. Go from top to bottom
-let g:SuperTabDefaultCompletionType = "<c-n>"
 
-map <f3> :TagbarToggle<CR>
-map <C-l> :TagbarOpenAutoClose<CR>/
-let g:tagbar_sort = 0
+" ============================================================
+" ==== GUI ====
+" ============================================================
 
-" Neocomplete
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" ------------------------------------------------------------
-"  GUI
-" ------------------------------------------------------------
 
 if has("gui_running")
     set lines=60 columns=120
