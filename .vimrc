@@ -54,7 +54,7 @@ Plugin 'abudden/taghighlight-automirror'
 "==== Random lang support
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'tpope/vim-markdown'
-" Plugin 'petRUShka/vim-opencl'
+Plugin 'petRUShka/vim-opencl'
 " Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
