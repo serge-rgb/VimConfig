@@ -106,6 +106,14 @@ set cmdheight=2     " avoid hit-enter promts
 set switchbuf+=usetab
 
 
+" Default indentation & wrap preferences
+set expandtab
+set shiftwidth=4
+set tabstop=8
+set softtabstop=4
+set nowrap
+
+
 " ============================================================
 " ==== Text edit remaps ====
 " ============================================================
@@ -178,18 +186,15 @@ endfunction
 
 " Text directory
 func! GotoText()
-  cd ~/Dropbox/txt
-  cal LongLines()
+    cd ~/Dropbox/txt
+    cal LongLines()
 endf
 
 " Personal log
-func! OpenLog()
+function! OpenLog()
     e ~/Dropbox/log.txt
     cd ~/Dropbox/txt
-    if has("gui_running")
-      set columns=53
-    endif
-endf
+endfunction
 
 " Set the background based on the time.
 function! SetDayColor()
@@ -205,24 +210,63 @@ endfunction
 
 cal SetDayColor()  " Call it at startup.
 
-" My default indent setup.
-function! SetSergeCodeStyle()
+" C/C++ stuff
+let g:CurrentCStyle="None"
+let g:DefaultCStyle="SergeCStyle"
+
+function! SergeCStyle()
+    " C++ style
+    " set colorcolumn=81,101
+    " set colorcolumn=101
+    " No namespace indent, no indent for case, unindent label block, no indent for
+    " public, private in classes
+    set cino=N-s,:0,l1,g0,(0,+8
+
     set expandtab
     set shiftwidth=4
     set tabstop=8
     set softtabstop=4
     set nowrap
+    set colorcolumn=110
+    " Size optimized for a 2560x1600 30in display
+    set columns=220
+    set lines=92
+    let g:CurrentCStyle="SergeCStyle"
+    echom g:CurrentCStyle
 endfunction
 
-" Set my style by default at startup
-cal SetSergeCodeStyle()
+function! SetCStyle()
+    if has('win32')
+        set makeprg=build
+    elseif has('unix')
+        set makeprg=./build.sh
+    endif
+    if g:CurrentCStyle == g:DefaultCStyle
+        echom "Current C style: " . g:CurrentCStyle
+    else
+        cal SergeCStyle()
+    endif
 
-func! UseGitGrep()
+    " ==== For when Taghighlight dies...
+    " Highlight all function names
+    " syntax match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
+    " highlight def link cCustomFunc Function
+
+    " " Common types
+    " syn keyword sergeType u8 i8 u16 i16 u32 i32 u64 i64
+    " syn keyword sergeType f32 f64
+    " syn keyword sergeType b32
+    " hi def link sergeType Type
+endfunction
+
+
+function! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*
-endf
-func! UseGrep()
+endfunction
+
+function! UseGrep()
     set grepprg=grep\ -n\ $*\ /dev/null
-endf
+endfunction
 
 
 
@@ -305,34 +349,6 @@ endfunction
 
 set tags=./tags;
 
-" C/C++ stuff
-function! SergeCSetup()
-    if has('win32')
-        set makeprg=build
-    elseif has('unix')
-            set makeprg=./build.sh
-    endif
-
-    " C++ style
-    " set colorcolumn=81,101
-    " set colorcolumn=101
-    " No namespace indent, no indent for case, unindent label block, no indent for
-    " public, private in classes
-    set cino=N-s,:0,l1,g0,(0,+8
-
-
-    " ==== For when Taghighlight dies...
-    " Highlight all function names
-    " syntax match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
-    " highlight def link cCustomFunc Function
-
-    " " Common types
-    " syn keyword sergeType u8 i8 u16 i16 u32 i32 u64 i64
-    " syn keyword sergeType f32 f64
-    " syn keyword sergeType b32
-    " hi def link sergeType Type
-endfunction
-
 
 
 " ============================================================
@@ -347,8 +363,7 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 " filtypes ---
 au BufNewFile,BufRead *.glsl set filetype=glsl430
 au BufNewFile,BufRead *.cl set filetype=opencl
-au BufNewFile,BufRead *.cpp,*.cc    call SergeCSetup()
-au BufNewFile,BufRead *.c,*.h       call SergeCSetup()
+au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle()
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
@@ -380,9 +395,9 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    "colorscheme zenburn
-    colorscheme solarized
-    let g:molokai_original=1
+    colorscheme zenburn
+    " colorscheme solarized
+    " let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
@@ -391,7 +406,7 @@ if has("gui_running")
 
     map <M-o> :CommandT<CR>
     if has("win32")
-"        set guifont=Consolas:h10
+        "        set guifont=Consolas:h10
         set guifont=DejaVu_Sans_Mono:h10:cANSI
         set enc=utf-8
     else
