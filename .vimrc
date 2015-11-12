@@ -145,6 +145,8 @@ noremap <leader>a ^
 " better tag jump
 noremap <leader>g g<C-]>
 inoremap <leader>g g<C-]>
+" Tabular plugin common case
+noremap <leader>t :Tabular /=<cr>
 
 " Insert mode ---
 " ... Emacs style
