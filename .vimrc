@@ -196,6 +196,9 @@ endf
 function! OpenLog()
     e ~/Dropbox/log.txt
     cd ~/Dropbox/txt
+    if has("gui_running")
+        set columns=53
+    endif
 endfunction
 
 " Set the background based on the time.
