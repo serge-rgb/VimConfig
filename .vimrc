@@ -232,10 +232,7 @@ function! SergeCStyle()
     set tabstop=8
     set softtabstop=4
     set nowrap
-    set colorcolumn=110
-    " Size optimized for a 2560x1600 30in display
-    set columns=220
-    set lines=92
+    " set colorcolumn=110
     let g:CurrentCStyle="SergeCStyle"
     echom g:CurrentCStyle
 endfunction
@@ -400,8 +397,8 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    colorscheme zenburn
-    " colorscheme solarized
+    " colorscheme zenburn
+    colorscheme solarized
     " let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
@@ -411,8 +408,8 @@ if has("gui_running")
 
     map <M-o> :CommandT<CR>
     if has("win32")
-        "        set guifont=Consolas:h10
-        set guifont=DejaVu_Sans_Mono:h10:cANSI
+        set guifont=Consolas:h9
+        "set guifont=DejaVu_Sans_Mono:h10:cANSI
         set enc=utf-8
     else
         if has("unix")
