@@ -179,7 +179,11 @@ function! LongLines()
         set guifont=DejaVu_Sans_Mono:h12
     endif
     if has('unix')
-        set guifont=DejaVu\ Sans\ Mono\ 12
+        if has("macunix")
+            set guifont=Monaco:h13
+        else
+            set guifont=DejaVu\ Sans\ Mono\ 12
+        endif
     endif
 endfunction
 
@@ -422,8 +426,8 @@ if has("gui_running")
     else
         if has("unix")
             if has("macunix")
-                "set guifont=Monaco:h11
-                set guifont=DejaVu_Sans_Mono:h11
+                set guifont=Monaco:h11
+                "set guifont=DejaVu_Sans_Mono:h11
             else
                 " set guifont=Ubuntu\ Mono\ 12
                 " set guifont=DejaVu\ Sans\ Mono\ 9
