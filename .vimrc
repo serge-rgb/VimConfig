@@ -178,6 +178,9 @@ function! LongLines()
     if has('win32')
         set guifont=DejaVu_Sans_Mono:h12
     endif
+    if has('unix')
+        set guifont=DejaVu\ Sans\ Mono\ 12
+    endif
 endfunction
 
 " Ctags + update tag highlighting
@@ -241,7 +244,7 @@ function! SetCStyle()
     if has('win32')
         set makeprg=build
     elseif has('unix')
-        set makeprg=./build.sh
+        set makeprg=make
     endif
     if g:CurrentCStyle == g:DefaultCStyle
         echom "Current C style: " . g:CurrentCStyle
@@ -288,7 +291,6 @@ noremap <F2> :NERDTreeToggle<cr>
 let g:ctrlp_working_path_mode = 0
 " CtrlP config.
 noremap <leader>b :CtrlPBuffer<cr>
-inoremap <leader>b <esc>:CtrlPBuffer<cr>
 
 " YankRing --- Remapping
 let g:yankring_replace_n_pkey = "<leader>p"
@@ -320,8 +322,14 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 imap <F1> <esc>
 nmap <F1> <esc>
+
 noremap <F5> :wa<esc>:make<cr><cr>:botright cw<cr>
 inoremap <F5> <esc>:wa<cr>:make<cr><cr>:botright cw<cr>
+
+" Same for alt-b
+noremap <A-b> :wa<esc>:make<cr><cr>:botright cw<cr>
+inoremap <A-b> :wa<esc>:make<cr><cr>:botright cw<cr>
+
 noremap <F6> :cn<cr>
 inoremap <F6> <esc>:cn<cr>
 " Silver Searcher
@@ -397,8 +405,8 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    colorscheme zenburn
-    " colorscheme solarized
+    " colorscheme zenburn
+    colorscheme solarized
     " let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
@@ -418,7 +426,8 @@ if has("gui_running")
                 set guifont=DejaVu_Sans_Mono:h11
             else
                 " set guifont=Ubuntu\ Mono\ 12
-                set guifont=DejaVu\ Sans\ Mono\ 10
+                " set guifont=DejaVu\ Sans\ Mono\ 9
+                set guifont=Inconsolata\ Medium\ 9
             endif
         endif
     endif
