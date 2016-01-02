@@ -113,6 +113,11 @@ set tabstop=8
 set softtabstop=4
 set nowrap
 
+" Statusline with fugitive info
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+
+" Mostly using the preview window for Fugitive Git status
+set previewheight=20
 
 " ============================================================
 " ==== Text edit remaps ====
@@ -249,6 +254,9 @@ function! SetCStyle()
         set makeprg=build
     elseif has('unix')
         set makeprg=make
+        if has('macunix')
+            set makeprg=./build_osx.sh
+        endif
     endif
     if g:CurrentCStyle == g:DefaultCStyle
         echom "Current C style: " . g:CurrentCStyle
