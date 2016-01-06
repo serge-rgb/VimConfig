@@ -28,10 +28,10 @@ Plugin 'gmarik/Vundle.vim'
 
 "==== Vim editing steroids
 Plugin 'Auto-Pairs'
-Plugin 'bling/vim-airline'
 Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'justinmk/vim-gtfo'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'surround.vim'
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
@@ -114,7 +114,7 @@ set softtabstop=4
 set nowrap
 
 " Statusline with fugitive info
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
+"set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Mostly using the preview window for Fugitive Git status
 set previewheight=20
@@ -439,7 +439,9 @@ if has("gui_running")
             else
                 " set guifont=Ubuntu\ Mono\ 12
                 " set guifont=DejaVu\ Sans\ Mono\ 9
-                set guifont=Inconsolata\ Medium\ 9
+                " set guifont=Inconsolata\ Medium\ 9
+                "set guifont=Consolas\ for\ Powerline\ 9
+                set guifont=Powerline\ Consolas\ 9
             endif
         endif
     endif
