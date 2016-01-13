@@ -46,7 +46,7 @@ Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 Plugin 'abudden/taghighlight-automirror'
@@ -62,7 +62,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
 "Plugin 'reedes/vim-colors-pencil'
-" Plugin 'tomasr/molokai'
+Plugin 'tomasr/molokai'
 " Plugin 'zefei/vim-colortuner'
 
 
@@ -274,6 +274,7 @@ function! SetCStyle()
     " syn keyword sergeType f32 f64
     " syn keyword sergeType b32
     " hi def link sergeType Type
+    hi link Member Identifier
 endfunction
 
 
@@ -418,9 +419,9 @@ if has("gui_running")
     hi link TagbarSignature Statement
 
     " colorscheme zenburn
-    colorscheme solarized
-    " let g:molokai_original=1
-    " colorscheme molokai
+    " colorscheme solarized
+    let g:molokai_original=1
+    colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
     " colorscheme base16-monokai
