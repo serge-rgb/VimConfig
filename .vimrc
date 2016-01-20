@@ -37,19 +37,21 @@ Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-speeddating'
 Plugin 'YankRing.vim'
 
 "==== IDE stuff
 Plugin 'a.vim'
+Plugin 'abudden/taghighlight-automirror'
 Plugin 'ervandew/supertab'
 Plugin 'kien/ctrlp.vim'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
 "Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
-Plugin 'abudden/taghighlight-automirror'
 
 "==== Random lang support
 Plugin 'beyondmarc/glsl.vim'
@@ -407,7 +409,11 @@ if has("gui_running")
     set guioptions-=r
     set guioptions-=L
     " No menu
-    set guioptions-=m
+    if has("unix")
+        " Presumably on ubuntu, where the menu doesn't get in the way.
+    else
+        set guioptions-=m
+    endif
     " No bells
     "
     set noerrorbells
@@ -419,9 +425,9 @@ if has("gui_running")
     hi link TagbarSignature Statement
 
     " colorscheme zenburn
-    " colorscheme solarized
-    let g:molokai_original=1
-    colorscheme molokai
+    colorscheme solarized
+    " let g:molokai_original=1
+    " colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
     " colorscheme base16-monokai
@@ -441,8 +447,8 @@ if has("gui_running")
                 " set guifont=Ubuntu\ Mono\ 12
                 " set guifont=DejaVu\ Sans\ Mono\ 9
                 " set guifont=Inconsolata\ Medium\ 9
-                "set guifont=Consolas\ for\ Powerline\ 9
                 set guifont=Powerline\ Consolas\ 9
+                set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 10
             endif
         endif
     endif
