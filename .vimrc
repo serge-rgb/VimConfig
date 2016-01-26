@@ -31,7 +31,6 @@ Plugin 'Auto-Pairs'
 Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'justinmk/vim-gtfo'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'surround.vim'
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
@@ -39,6 +38,7 @@ Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-speeddating'
+Plugin 'vim-airline/vim-airline'
 Plugin 'YankRing.vim'
 
 "==== IDE stuff
@@ -229,10 +229,6 @@ endfunction
 
 cal SetDayColor()  " Call it at startup.
 
-" C/C++ stuff
-let g:CurrentCStyle="None"
-let g:DefaultCStyle="SergeCStyle"
-
 function! SergeCStyle()
     " C++ style
     " set colorcolumn=81,101
@@ -250,35 +246,6 @@ function! SergeCStyle()
     let g:CurrentCStyle="SergeCStyle"
     echom g:CurrentCStyle
 endfunction
-
-function! SetCStyle()
-    if has('win32')
-        set makeprg=build
-    elseif has('unix')
-        set makeprg=make
-        if has('macunix')
-            set makeprg=./build_osx.sh
-        endif
-    endif
-    if g:CurrentCStyle == g:DefaultCStyle
-        echom "Current C style: " . g:CurrentCStyle
-    else
-        cal SergeCStyle()
-    endif
-
-    " ==== For when Taghighlight dies...
-    " Highlight all function names
-    " syntax match cCustomFunc /\w\+\s*(/me=e-1,he=e-1
-    " highlight def link cCustomFunc Function
-
-    " " Common types
-    " syn keyword sergeType u8 i8 u16 i16 u32 i32 u64 i64
-    " syn keyword sergeType f32 f64
-    " syn keyword sergeType b32
-    " hi def link sergeType Type
-    hi link Member Identifier
-endfunction
-
 
 function! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*
@@ -330,9 +297,11 @@ let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 
+
 " ============================================================
 " ==== Quickfix window ====
 " ============================================================
+
 
 
 imap <F1> <esc>
@@ -388,7 +357,7 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 " filtypes ---
 au BufNewFile,BufRead *.glsl set filetype=glsl430
 au BufNewFile,BufRead *.cl set filetype=opencl
-au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle()
+" au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle()
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
@@ -400,6 +369,14 @@ au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 " ==== GUI ====
 " ============================================================
 
+if has('win32')
+    set makeprg=build
+elseif has('unix')
+    set makeprg=make
+    if has('macunix')
+        set makeprg=./build_osx.sh
+    endif
+endif
 
 
 if has("gui_running")
