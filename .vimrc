@@ -108,18 +108,13 @@ set cmdheight=2     " avoid hit-enter promts
 set switchbuf+=usetab
 
 
-" Default indentation & wrap preferences
-set expandtab
-set shiftwidth=4
-set tabstop=8
-set softtabstop=4
-set nowrap
-
 " Statusline with fugitive info
 "set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 " Mostly using the preview window for Fugitive Git status
 set previewheight=20
+
+
 
 " ============================================================
 " ==== Text edit remaps ====
@@ -243,9 +238,20 @@ function! SergeCStyle()
     set softtabstop=4
     set nowrap
     " set colorcolumn=110
-    let g:CurrentCStyle="SergeCStyle"
-    echom g:CurrentCStyle
+    "
+    " " Common types
+    " syn keyword sergeType u8 i8 u16 i16 u32 i32 u64 i64
+    " syn keyword sergeType f32 f64
+    " syn keyword sergeType b32
+    " hi def link sergeType Type
+
+    " Ctags Highlight plugin confuses colorschemes
+    hi link Member Identifier
 endfunction
+
+" Call it by default, but we are running vim-sleuth to work with other
+" codebases
+call SergeCStyle()
 
 function! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*
@@ -296,6 +302,8 @@ let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
 
+" Fugitive. Easy Git status
+noremap <leader>d :Gstatus<cr>
 
 
 " ============================================================
@@ -401,9 +409,9 @@ if has("gui_running")
     " Tagbar signature highlighting sucks
     hi link TagbarSignature Statement
 
-    " colorscheme zenburn
-    colorscheme solarized
-    " let g:molokai_original=1
+    colorscheme zenburn
+    " colorscheme solarized
+    "let g:molokai_original=1
     " colorscheme molokai
     " colorscheme pencil
     " colorscheme base16-google
