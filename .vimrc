@@ -57,6 +57,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'beyondmarc/glsl.vim'
 Plugin 'tpope/vim-markdown'
 Plugin 'petRUShka/vim-opencl'
+Plugin 'PProvost/vim-ps1'
 " Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
