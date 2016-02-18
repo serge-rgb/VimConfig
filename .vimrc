@@ -45,7 +45,7 @@ Plugin 'YankRing.vim'
 Plugin 'a.vim'
 Plugin 'abudden/taghighlight-automirror'
 Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
@@ -329,6 +329,7 @@ inoremap <F6> <esc>:cn<cr>
 " Note: -U ignores .gitignore et al. Should have .agignore to filter crap
 let g:ackprg = 'ag --nocolor --column'
 noremap <F7> :Ack <C-r><C-w><cr>
+noremap <C-F7> :Ack
 inoremap <F7> :Ack <C-r><C-w><cr>
 " Go through errors in cwind
 noremap <F8> :cnext<cr>
@@ -375,76 +376,86 @@ au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
 
 " ============================================================
-" ==== GUI ====
+" ==== GUI and Init ====
 " ============================================================
 
-if has('win32')
-    set makeprg=build
-elseif has('unix')
-    set makeprg=make
-    if has('macunix')
-        set makeprg=./build_osx.sh
-    endif
-endif
 
-
-if has("gui_running")
-    set lines=60 columns=120
-    set guioptions-=T "No toolbar
-    " Remove scrobars:
-    set guioptions-=r
-    set guioptions-=L
-    " No menu
-    if has("unix")
-        " Presumably on ubuntu, where the menu doesn't get in the way.
-    else
-        set guioptions-=m
-    endif
-    " No bells
-    "
-    set noerrorbells
-    set novisualbell
-    set t_vb=
-    autocmd! GUIEnter * set vb t_vb=
-
-    " Tagbar signature highlighting sucks
-    hi link TagbarSignature Statement
-
-    colorscheme zenburn
-    " colorscheme solarized
-    "let g:molokai_original=1
-    " colorscheme molokai
-    " colorscheme pencil
-    " colorscheme base16-google
-    " colorscheme base16-monokai
-    " set background=dark
-
-    map <M-o> :CommandT<CR>
-    if has("win32")
-        set guifont=Consolas:h9
-        "set guifont=DejaVu_Sans_Mono:h10:cANSI
-        set enc=utf-8
-    else
-        if has("unix")
-            if has("macunix")
-                set guifont=Monaco:h11
-                "set guifont=DejaVu_Sans_Mono:h11
-            else
-                " set guifont=Ubuntu\ Mono\ 12
-                " set guifont=DejaVu\ Sans\ Mono\ 9
-                " set guifont=Inconsolata\ Medium\ 9
-                set guifont=Powerline\ Consolas\ 9
-                set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 10
-            endif
+function! InitVim()
+    if has('win32')
+        set makeprg=.\build.bat
+        " set shell=powershell
+        " set shellcmdflag=-c
+        " set shellpipe=>
+        " set shellredir=>
+    elseif has('unix')
+        set makeprg=make
+        if has('macunix')
+            set makeprg=./build_osx.sh
         endif
     endif
+endfunction
 
-endif
+function! InitVimGui()
+    if has("gui_running")
+        set lines=60 columns=120
+        set guioptions-=T "No toolbar
+        " Remove scrobars:
+        set guioptions-=r
+        set guioptions-=L
+        " No menu
+        if has("unix")
+            " Presumably on ubuntu, where the menu doesn't get in the way.
+        else
+            set guioptions-=m
+        endif
+        " No bells
+        "
+        set noerrorbells
+        set novisualbell
+        set t_vb=
+        autocmd! GUIEnter * set vb t_vb=
 
-if has("gui_macvim")
-    macm File.Open\.\.\. key=<nop>
-    macmenu &File.New\ Tab key=<nop>
-    map <D-o> :CommandT<CR>
-endif
+        " Tagbar signature highlighting sucks
+        hi link TagbarSignature Statement
 
-"highlight ColorColumn guibg=Gray20
+        colorscheme zenburn
+        " colorscheme solarized
+        "let g:molokai_original=1
+        " colorscheme molokai
+        " colorscheme pencil
+        " colorscheme base16-google
+        " colorscheme base16-monokai
+        " set background=dark
+
+        map <M-o> :CommandT<CR>
+        if has("win32")
+            set guifont=Consolas:h9
+            "set guifont=DejaVu_Sans_Mono:h10:cANSI
+            set enc=utf-8
+        else
+            if has("unix")
+                if has("macunix")
+                    set guifont=Monaco:h11
+                    "set guifont=DejaVu_Sans_Mono:h11
+                else
+                    " set guifont=Ubuntu\ Mono\ 12
+                    " set guifont=DejaVu\ Sans\ Mono\ 9
+                    " set guifont=Inconsolata\ Medium\ 9
+                    set guifont=Powerline\ Consolas\ 9
+                    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 10
+                endif
+            endif
+        endif
+
+    endif
+
+    if has("gui_macvim")
+        macm File.Open\.\.\. key=<nop>
+        macmenu &File.New\ Tab key=<nop>
+        map <D-o> :CommandT<CR>
+    endif
+    "highlight ColorColumn guibg=Gray20
+endfunction
+
+autocmd VimEnter * :call InitVim()
+autocmd GuiEnter * :call InitVimGui()
