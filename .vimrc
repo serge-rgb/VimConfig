@@ -49,7 +49,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-"Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 
@@ -61,6 +61,7 @@ Plugin 'PProvost/vim-ps1'
 " Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
+Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
@@ -329,7 +330,7 @@ inoremap <F6> <esc>:cn<cr>
 " Note: -U ignores .gitignore et al. Should have .agignore to filter crap
 let g:ackprg = 'ag --nocolor --column'
 noremap <F7> :Ack <C-r><C-w><cr>
-noremap <C-F7> :Ack
+noremap <C-F7> :Ack<space>
 inoremap <F7> :Ack <C-r><C-w><cr>
 " Go through errors in cwind
 noremap <F8> :cnext<cr>
@@ -364,12 +365,16 @@ set tags=./tags;
 " Remove any trailing whitespace that is in the file
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
-" filtypes ---
+" filetypes ---
 au BufNewFile,BufRead *.glsl set filetype=glsl430
 au BufNewFile,BufRead *.cl set filetype=opencl
 " au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle()
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
+
+" Use semantic highlighting for code
+au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua SemanticHighlight
+au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua noremap <leader>s :w<cr>:SemanticHighlight<cr>
 
 " au BufNewFile * set ff=unix
 
