@@ -308,6 +308,7 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 noremap <leader>d :Gstatus<cr>
 
 
+
 " ============================================================
 " ==== Quickfix window ====
 " ============================================================
@@ -373,16 +374,16 @@ au BufNewFile,BufRead *.cl set filetype=opencl
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
 " Use semantic highlighting for code
-au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua SemanticHighlight
-au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua noremap <leader>s :w<cr>:SemanticHighlight<cr>
+"au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua SemanticHighlight
+"au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua noremap <leader>s :w<cr>:SemanticHighlight<cr>
 
 " au BufNewFile * set ff=unix
-
 
 
 " ============================================================
 " ==== GUI and Init ====
 " ============================================================
+
 
 
 function! InitVim()
@@ -397,6 +398,10 @@ function! InitVim()
         if has('macunix')
             set makeprg=./build_osx.sh
         endif
+    endif
+
+    if executable('ag')
+        set grepprg=ag\ --nogroup\ --nocolor
     endif
 endfunction
 
@@ -423,14 +428,15 @@ function! InitVimGui()
         " Tagbar signature highlighting sucks
         hi link TagbarSignature Statement
 
-        colorscheme zenburn
-        " colorscheme solarized
-        "let g:molokai_original=1
-        " colorscheme molokai
-        " colorscheme pencil
-        " colorscheme base16-google
-        " colorscheme base16-monokai
-        " set background=dark
+        let g:molokai_original=1
+        "colorscheme molokai
+        "colorscheme zenburn
+        "colorscheme solarized
+        "colorscheme pencil
+        "colorscheme base16-google
+        "colorscheme base16-monokai
+        colorscheme default
+        "set background=dark
 
         map <M-o> :CommandT<CR>
         if has("win32")
