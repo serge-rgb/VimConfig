@@ -43,7 +43,7 @@ Plugin 'YankRing.vim'
 
 "==== IDE stuff
 Plugin 'a.vim'
-Plugin 'abudden/taghighlight-automirror'
+"Plugin 'abudden/taghighlight-automirror'
 Plugin 'ervandew/supertab'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
@@ -307,8 +307,6 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 " Fugitive. Easy Git status
 noremap <leader>d :Gstatus<cr>
 
-
-
 " ============================================================
 " ==== Quickfix window ====
 " ============================================================
@@ -430,12 +428,11 @@ function! InitVimGui()
 
         let g:molokai_original=1
         "colorscheme molokai
-        "colorscheme zenburn
+        colorscheme zenburn
         "colorscheme solarized
         "colorscheme pencil
-        "colorscheme base16-google
         "colorscheme base16-monokai
-        colorscheme default
+        "colorscheme default
         "set background=dark
 
         map <M-o> :CommandT<CR>
