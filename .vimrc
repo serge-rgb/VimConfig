@@ -49,7 +49,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'Shougo/neocomplete.vim'
+"Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tpope/vim-fugitive'
 
@@ -65,7 +65,7 @@ Plugin 'jaxbot/semantic-highlight.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
-"Plugin 'reedes/vim-colors-pencil'
+Plugin 'reedes/vim-colors-pencil'
 Plugin 'tomasr/molokai'
 " Plugin 'zefei/vim-colortuner'
 
@@ -130,8 +130,6 @@ let mapleader=','
 noremap <F4> @@
 " Better than esc. (go to normal mode and save)
 inoremap jj <esc>:w<cr>
-" Go to the end while in insert mode
-inoremap ,, <esc>A
 " Saving
 noremap <leader>s :w<cr>
 " Swap Header/Impl
@@ -156,7 +154,7 @@ noremap <leader>t :Tabular /=<cr>
 " ... Emacs style
 inoremap <C-e> <esc>A
 inoremap <C-a> <esc>I
-inoremap <C-k> <esc>d$I
+inoremap <C-k> <esc>d$A
 " Ctrl-Backspace should kill a word..
 inoremap <C-BS> <C-W>
 
@@ -167,26 +165,32 @@ inoremap <C-BS> <C-W>
 " ============================================================
 
 
+" Global function to make LongLines do nothing
+let g:no_longlines=0 ""
 
 " For writing prose
 function! LongLines()
-    set wrap
-    set linebreak
-    set nolist
-    set textwidth=0
-    set wrapmargin=0
-    set colorcolumn=0
-    "Remap j and k to be visual
-    noremap j gj
-    noremap k gk
-    if has('win32')
-        set guifont=DejaVu_Sans_Mono:h12
-    endif
-    if has('unix')
-        if has("macunix")
-            set guifont=Monaco:h13
-        else
-            set guifont=DejaVu\ Sans\ Mono\ 12
+    if !g:no_longlines
+        set wrap
+        set linebreak
+        set nolist
+        set textwidth=0
+        set wrapmargin=0
+        set colorcolumn=0
+        set columns=80
+        set lines=60
+        "Remap j and k to be visual
+        noremap j gj
+        noremap k gk
+        if has('win32')
+            set guifont=DejaVu_Sans_Mono:h11
+        endif
+        if has('unix')
+            if has("macunix")
+                set guifont=Monaco:h13
+            else
+                set guifont=DejaVu\ Sans\ Mono\ 12
+            endif
         endif
     endif
 endfunction
@@ -205,6 +209,7 @@ endf
 
 " Personal log
 function! OpenLog()
+    let g:no_longlines=1
     e ~/Dropbox/log.txt
     cd ~/Dropbox/txt
     if has("gui_running")
@@ -224,7 +229,6 @@ else:
 EOF
 endfunction
 
-cal SetDayColor()  " Call it at startup.
 
 function! SergeCStyle()
     " C++ style
@@ -238,7 +242,6 @@ function! SergeCStyle()
     set shiftwidth=4
     set tabstop=8
     set softtabstop=4
-    set nowrap
     " set colorcolumn=110
     "
     " " Common types
@@ -250,10 +253,6 @@ function! SergeCStyle()
     " Ctags Highlight plugin confuses colorschemes
     hi link Member Identifier
 endfunction
-
-" Call it by default, but we are running vim-sleuth to work with other
-" codebases
-call SergeCStyle()
 
 function! UseGitGrep()
     set grepprg=git\ grep\ -n\ $*
@@ -306,6 +305,9 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 
 " Fugitive. Easy Git status
 noremap <leader>d :Gstatus<cr>
+
+" Easymotion mapping
+map <space> <Plug>(easymotion-prefix)
 
 " ============================================================
 " ==== Quickfix window ====
@@ -371,6 +373,11 @@ au BufNewFile,BufRead *.cl set filetype=opencl
 " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
+" prose
+let g:no_open_files=1
+au BufNewFile,BufRead *.txt,*.md,*.html if g:no_open_files | cal LongLines() | endif
+au BufNewFile,BufRead * let g:no_open_files=0
+
 " Use semantic highlighting for code
 "au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua SemanticHighlight
 "au BufNewFile,BufRead,BufEnter *.cpp,*.cc,*.c,*.h,*.cl,*.glsl,*.py,*.lua noremap <leader>s :w<cr>:SemanticHighlight<cr>
@@ -401,11 +408,15 @@ function! InitVim()
     if executable('ag')
         set grepprg=ag\ --nogroup\ --nocolor
     endif
+
+    " Call this by default, but we are running vim-sleuth to work with other codebases
+    call SergeCStyle()
 endfunction
 
 function! InitVimGui()
     if has("gui_running")
-        set lines=60 columns=120
+        set lines=80 columns=150
+        "set lines=80 columns=211
         set guioptions-=T "No toolbar
         " Remove scrobars:
         set guioptions-=r
@@ -447,10 +458,10 @@ function! InitVimGui()
                     "set guifont=DejaVu_Sans_Mono:h11
                 else
                     " set guifont=Ubuntu\ Mono\ 12
-                    " set guifont=DejaVu\ Sans\ Mono\ 9
+                    set guifont=DejaVu\ Sans\ Mono\ 10
                     " set guifont=Inconsolata\ Medium\ 9
-                    set guifont=Powerline\ Consolas\ 9
-                    set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 10
+                    "set guifont=Powerline\ Consolas\ 9
+                    "set guifont=Ubuntu\ Mono\ derivative\ Powerline\ 10
                 endif
             endif
         endif
