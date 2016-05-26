@@ -116,7 +116,8 @@ set switchbuf+=usetab
 " Mostly using the preview window for Fugitive Git status
 set previewheight=20
 
-
+" I don't want wrapping unless i'm writing prose
+set nowrap
 
 " ============================================================
 " ==== Text edit remaps ====
@@ -157,6 +158,9 @@ inoremap <C-a> <esc>I
 inoremap <C-k> <esc>d$A
 " Ctrl-Backspace should kill a word..
 inoremap <C-BS> <C-W>
+
+" Format paragraph
+noremap <leader>q gqip
 
 
 
