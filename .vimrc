@@ -138,6 +138,8 @@ noremap <C-Tab> :A<cr>
 inoremap <C-Tab> <esc>:A<cr>
 " Ctrl-w is cumbersome
 noremap <leader>w <C-w>
+" Move window to the right
+noremap <leader>r <C-w><C-r>
 " make word Capitalized
 noremap <leader>u ebgUl
 " make word UPPERCASE
@@ -181,7 +183,7 @@ function! LongLines()
         set textwidth=0
         set wrapmargin=0
         set colorcolumn=0
-        set columns=80
+        set columns=90
         set lines=60
         "Remap j and k to be visual
         noremap j gj
