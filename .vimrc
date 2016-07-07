@@ -67,6 +67,7 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'jnurmine/Zenburn.git'
 Plugin 'reedes/vim-colors-pencil'
 Plugin 'tomasr/molokai'
+Plugin 'vim-scripts/louver.vim'
 " Plugin 'zefei/vim-colortuner'
 
 
@@ -126,6 +127,8 @@ set nowrap
 
 
 let mapleader=','
+" Remap \ as , for an extra leader
+nmap \ ,
 
 " F4 for repeat macro
 noremap <F4> @@
@@ -228,7 +231,7 @@ function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
-if hour < 8 or hour >= 16:
+if hour < 8 or hour >= 19:
     vim.command("set background=dark\n")
 else:
     vim.command("set background=light\n")
@@ -445,12 +448,17 @@ function! InitVimGui()
 
         let g:molokai_original=1
         "colorscheme molokai
-        colorscheme zenburn
+        "colorscheme zenburn
         "colorscheme solarized
         "colorscheme pencil
         "colorscheme base16-monokai
         "colorscheme default
         "set background=dark
+        colorscheme louver
+
+        " the default theme doesn't work right with split windows & light
+        " themes
+        AirlineTheme pencil
 
         map <M-o> :CommandT<CR>
         if has("win32")
@@ -480,6 +488,7 @@ function! InitVimGui()
         map <D-o> :CommandT<CR>
     endif
     "highlight ColorColumn guibg=Gray20
+    "call SetDayColor()
 endfunction
 
 autocmd VimEnter * :call InitVim()
