@@ -30,7 +30,9 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'Auto-Pairs'
 Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'junegunn/goyo.vim'
 Plugin 'justinmk/vim-gtfo'
+"Plugin 'spolu/dwm.vim'
 Plugin 'surround.vim'
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
@@ -80,6 +82,10 @@ call vundle#end()
 " ============================================================
 
 
+let mapleader=','
+" Remap \ as , for an extra leader
+nmap \ ,
+
 
 syntax on
 set backspace=2
@@ -120,29 +126,48 @@ set previewheight=20
 " I don't want wrapping unless i'm writing prose
 set nowrap
 
+" Ctrl-w is cumbersome
+noremap <leader>w <C-w>
+" Move window to the right
+noremap <leader>r <C-w><C-r>
+" Switch betweeen windows
+noremap <A-Left>    <C-w>h
+noremap <A-Right>   <C-w>l
+noremap <A-Up>      <C-w>k
+noremap <A-Down>    <C-w>j
+" Close
+noremap <A-.>       <C-w>c
+" Splits
+noremap <A-s>       <C-w>s
+noremap <A-v>       <C-w>v
+noremap <A-i>       <C-w>v
+" Only
+noremap <A-o>       <C-w>o
+
+noremap <A-h>    <C-w>h
+noremap <A-l>   <C-w>l
+noremap <A-k>      <C-w>k
+noremap <A-j>    <C-w>j
+
+
+
 " ============================================================
 " ==== Text edit remaps ====
 " ============================================================
 
 
 
-let mapleader=','
-" Remap \ as , for an extra leader
-nmap \ ,
-
 " F4 for repeat macro
 noremap <F4> @@
 " Better than esc. (go to normal mode and save)
 inoremap jj <esc>:w<cr>
+inoremap kj <esc>:w<cr>
+inoremap lk <esc>:w<cr>
 " Saving
 noremap <leader>s :w<cr>
 " Swap Header/Impl
 noremap <C-Tab> :A<cr>
 inoremap <C-Tab> <esc>:A<cr>
-" Ctrl-w is cumbersome
-noremap <leader>w <C-w>
-" Move window to the right
-noremap <leader>r <C-w><C-r>
 " make word Capitalized
 noremap <leader>u ebgUl
 " make word UPPERCASE
@@ -174,9 +199,9 @@ noremap <leader>q gqip
 " ============================================================
 
 
+
 " Global function to make LongLines do nothing
 let g:no_longlines=0 ""
-
 " For writing prose
 function! LongLines()
     if !g:no_longlines
@@ -231,7 +256,7 @@ function! SetDayColor()
 python << EOF
 import vim, time
 hour = time.localtime().tm_hour
-if hour < 8 or hour >= 19:
+if hour <= 7 or hour >= 20:
     vim.command("set background=dark\n")
 else:
     vim.command("set background=light\n")
@@ -289,6 +314,7 @@ noremap <F2> :NERDTreeToggle<cr>
 let g:ctrlp_working_path_mode = 0
 " CtrlP config.
 noremap <leader>b :CtrlPBuffer<cr>
+let g:ctrlp_cmd = 'CtrlPMRUFiles'
 
 " YankRing --- Remapping
 let g:yankring_replace_n_pkey = "<leader>p"
@@ -317,6 +343,8 @@ noremap <leader>d :Gstatus<cr>
 
 " Easymotion mapping
 map <space> <Plug>(easymotion-prefix)
+
+
 
 " ============================================================
 " ==== Quickfix window ====
@@ -376,10 +404,10 @@ set tags=./tags;
 autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 
 " filetypes ---
-au BufNewFile,BufRead *.glsl set filetype=glsl430
+"au BufNewFile,BufRead *.glsl set filetype=glsl430
+au BufNewFile,BufRead *.glsl set filetype=cpp
 au BufNewFile,BufRead *.cl set filetype=opencl
-" au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle()
-" Haskell stuff
+" au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle() " Haskell stuff
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
 " prose
@@ -399,6 +427,22 @@ au BufNewFile,BufRead * let g:no_open_files=0
 " ============================================================
 
 
+let g:loop_function_int=0
+function! LoopColorSchemes()
+    if g:loop_function_int == 0
+        colorscheme louver
+    elseif g:loop_function_int == 1
+        colorscheme zenburn
+    elseif g:loop_function_int == 2
+        colorscheme molokai
+    " elseif g:loop_function_int == 3
+    "     colorscheme solarized
+    endif
+    let g:loop_function_int=g:loop_function_int + 1
+    let g:loop_function_int=g:loop_function_int % 3
+endfunction
+
+noremap <A-c> :call LoopColorSchemes()<cr>
 
 function! InitVim()
     if has('win32')
@@ -454,7 +498,10 @@ function! InitVimGui()
         "colorscheme base16-monokai
         "colorscheme default
         "set background=dark
-        colorscheme louver
+        "colorscheme louver
+
+        " Choose the first color scheme
+        call LoopColorSchemes()
 
         " the default theme doesn't work right with split windows & light
         " themes
