@@ -286,6 +286,11 @@ function! SergeCStyle()
 
     " Ctags Highlight plugin confuses colorschemes
     hi link Member Identifier
+
+    " C++ remappings
+
+    " Auto-indent when pasting
+    nnoremap p p=`]`]
 endfunction
 
 function! UseGitGrep()
@@ -507,7 +512,6 @@ function! InitVimGui()
         " themes
         AirlineTheme pencil
 
-        map <M-o> :CommandT<CR>
         if has("win32")
             set guifont=Consolas:h9
             "set guifont=DejaVu_Sans_Mono:h10:cANSI
