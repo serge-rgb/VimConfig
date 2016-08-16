@@ -162,7 +162,6 @@ noremap <F4> @@
 " Better than esc. (go to normal mode and save)
 inoremap jj <esc>:w<cr>
 inoremap kj <esc>:w<cr>
-inoremap lk <esc>:w<cr>
 " Saving
 noremap <leader>s :w<cr>
 " Swap Header/Impl
@@ -290,7 +289,7 @@ function! SergeCStyle()
     " C++ remappings
 
     " Auto-indent when pasting
-    nnoremap p p=`]`]
+    "nnoremap p p=`]`]
 endfunction
 
 function! UseGitGrep()
@@ -412,7 +411,7 @@ autocmd BufRead,BufWrite * if ! &bin | silent! %s/\s\+$//ge | endif
 "au BufNewFile,BufRead *.glsl set filetype=glsl430
 au BufNewFile,BufRead *.glsl set filetype=cpp
 au BufNewFile,BufRead *.cl set filetype=opencl
-" au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SetCStyle() " Haskell stuff
+au BufNewFile,BufRead *.cpp,*.cc,*.c,*.h,*.cl,*.glsl call SergeCStyle()
 au BufNewFile,BufRead *.hs set makeprg=cabal\ build
 
 " prose
@@ -468,7 +467,6 @@ function! InitVim()
     endif
 
     " Call this by default, but we are running vim-sleuth to work with other codebases
-    call SergeCStyle()
 endfunction
 
 function! InitVimGui()
