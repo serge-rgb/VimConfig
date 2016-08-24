@@ -212,6 +212,8 @@ function! LongLines()
         set colorcolumn=0
         set columns=90
         set lines=60
+        set nocursorline
+        set spell
         "Remap j and k to be visual
         noremap j gj
         noremap k gk
