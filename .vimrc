@@ -116,6 +116,8 @@ set cmdheight=2     " avoid hit-enter promts
 " Don't mess with my window. Use buffer in already open tab. Otherwise, split
 set switchbuf+=usetab
 
+" Don't beep
+set visualbell
 
 " Statusline with fugitive info
 "set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
@@ -485,10 +487,6 @@ function! InitVimGui()
         else
             set guioptions-=m
         endif
-        " No bells
-        "
-        set noerrorbells
-        set novisualbell
         set t_vb=
         autocmd! GUIEnter * set vb t_vb=
 
