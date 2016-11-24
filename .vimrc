@@ -1,4 +1,5 @@
 filetype on
+filetype plugin on
 set nocompatible
 
 " Setup notes:
@@ -28,31 +29,33 @@ Plugin 'gmarik/Vundle.vim'
 
 "==== Vim editing steroids
 Plugin 'Auto-Pairs'
-Plugin 'godlygeek/tabular'
 Plugin 'Lokaltog/vim-easymotion'
+Plugin 'YankRing.vim'
+Plugin 'godlygeek/tabular'
 Plugin 'junegunn/goyo.vim'
 Plugin 'justinmk/vim-gtfo'
-"Plugin 'spolu/dwm.vim'
+Plugin 'skwp/greplace.vim'
 Plugin 'surround.vim'
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-unimpaired'  " :help unimpaired
 Plugin 'vim-airline/vim-airline'
-Plugin 'YankRing.vim'
+"Plugin 'spolu/dwm.vim'
 
 "==== IDE stuff
 Plugin 'a.vim'
-"Plugin 'abudden/taghighlight-automirror'
+" Plugin 'abudden/taghighlight-automirror'
 Plugin 'ervandew/supertab'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-"Plugin 'Shougo/neocomplete.vim'
+" Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
+Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 
 "==== Random lang support
@@ -60,6 +63,7 @@ Plugin 'beyondmarc/glsl.vim'
 Plugin 'tpope/vim-markdown'
 Plugin 'petRUShka/vim-opencl'
 Plugin 'PProvost/vim-ps1'
+Plugin 'rust-lang/rust.vim'
 " Plugin 'raichoo/haskell-vim'
 
 "==== Rainbows
@@ -130,8 +134,6 @@ set nowrap
 
 " Ctrl-w is cumbersome
 noremap <leader>w <C-w>
-" Move window to the right
-noremap <leader>r <C-w><C-r>
 " Switch betweeen windows
 noremap <A-Left>    <C-w>h
 noremap <A-Right>   <C-w>l
@@ -162,8 +164,10 @@ noremap <A-j>    <C-w>j
 " F4 for repeat macro
 noremap <F4> @@
 " Better than esc. (go to normal mode and save)
-inoremap jj <esc>:w<cr>
-inoremap kj <esc>:w<cr>
+" inoremap jj <esc>:w<cr>
+" inoremap kj <esc>:w<cr>
+inoremap jj <esc>
+inoremap kj <esc>
 " Saving
 noremap <leader>s :w<cr>
 " Swap Header/Impl
@@ -219,8 +223,10 @@ function! LongLines()
         "Remap j and k to be visual
         noremap j gj
         noremap k gk
+        noremap <leader>e g$
+        noremap <leader>a g^
         if has('win32')
-            set guifont=DejaVu_Sans_Mono:h11
+            "set guifont=DejaVu_Sans_Mono:h11
         endif
         if has('unix')
             if has("macunix")
@@ -247,7 +253,7 @@ endf
 " Personal log
 function! OpenLog()
     let g:no_longlines=1
-    e ~/Dropbox/log.txt
+    e ~/Dropbox/txt/log.txt
     cd ~/Dropbox/txt
     if has("gui_running")
         set columns=53
@@ -323,11 +329,12 @@ let g:ctrlp_working_path_mode = 0
 " CtrlP config.
 noremap <leader>b :CtrlPBuffer<cr>
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
+" Ctags Fuzzy find
+noremap <leader>r :CtrlPTag<cr>
 
 " YankRing --- Remapping
 let g:yankring_replace_n_pkey = "<leader>p"
 let g:yankring_replace_n_nkey = "<leader>n"
-
 
 " Autopairs --- Jump outside of scope mapping
 noremap <C-space> <esc>:call AutoPairsJump()<cr>
@@ -352,7 +359,22 @@ noremap <leader>d :Gstatus<cr>
 " Easymotion mapping
 map <space> <Plug>(easymotion-prefix)
 
+" Commentary
+autocmd FileType cpp setlocal commentstring=//\ %s
 
+" Syntactic
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_python_checkers = ['pyflakes']
+" let g:syntastic_cpp_checkers=['gcc']
+" let g:syntastic_cpp_check_header = 1
+" let g:syntastic_cpp_auto_refresh_includes = 1
 
 " ============================================================
 " ==== Quickfix window ====
@@ -512,7 +534,8 @@ function! InitVimGui()
 
         if has("win32")
             set guifont=Consolas:h9
-            "set guifont=DejaVu_Sans_Mono:h10:cANSI
+            "set renderoptions=type:directx,taamode:1,geom:1,gamma:2.2,renmode:5,contrast:0.6,level:1.0
+            "set guifont=DejaVu_Sans_Mono:h8
             set enc=utf-8
         else
             if has("unix")
