@@ -41,9 +41,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-sleuth'
 Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-unimpaired'  " :help unimpaired
+Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
-"Plugin 'spolu/dwm.vim'
 
 "==== IDE stuff
 Plugin 'a.vim'
@@ -53,9 +52,9 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-" Plugin 'Shougo/neocomplete.vim'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
 
 "==== Random lang support
@@ -139,6 +138,10 @@ noremap <A-Left>    <C-w>h
 noremap <A-Right>   <C-w>l
 noremap <A-Up>      <C-w>k
 noremap <A-Down>    <C-w>j
+noremap <A-h>       <C-w>h
+noremap <A-l>       <C-w>l
+noremap <A-k>       <C-w>k
+noremap <A-j>       <C-w>j
 " Close
 noremap <A-.>       <C-w>c
 " Splits
@@ -148,11 +151,6 @@ noremap <A-i>       <C-w>v
 " Only
 noremap <A-o>       <C-w>o
 
-noremap <A-h>    <C-w>h
-noremap <A-l>   <C-w>l
-noremap <A-k>      <C-w>k
-noremap <A-j>    <C-w>j
-
 
 
 " ============================================================
@@ -161,7 +159,7 @@ noremap <A-j>    <C-w>j
 
 
 
-" F4 for repeat macro
+" F4 to repeat macro
 noremap <F4> @@
 " Better than esc. (go to normal mode and save)
 " inoremap jj <esc>:w<cr>
@@ -362,20 +360,6 @@ map <space> <Plug>(easymotion-prefix)
 " Commentary
 autocmd FileType cpp setlocal commentstring=//\ %s
 
-" Syntactic
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
-
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_python_checkers = ['pyflakes']
-" let g:syntastic_cpp_checkers=['gcc']
-" let g:syntastic_cpp_check_header = 1
-" let g:syntastic_cpp_auto_refresh_includes = 1
-
 " ============================================================
 " ==== Quickfix window ====
 " ============================================================
@@ -457,7 +441,7 @@ au BufNewFile,BufRead * let g:no_open_files=0
 " ============================================================
 
 
-let g:loop_function_int=0
+let g:loop_function_int=1
 function! LoopColorSchemes()
     if g:loop_function_int == 0
         colorscheme louver
@@ -465,11 +449,12 @@ function! LoopColorSchemes()
         colorscheme zenburn
     elseif g:loop_function_int == 2
         colorscheme molokai
-    " elseif g:loop_function_int == 3
-    "     colorscheme solarized
+    elseif g:loop_function_int == 3
+        colorscheme solarized
     endif
     let g:loop_function_int=g:loop_function_int + 1
-    let g:loop_function_int=g:loop_function_int % 3
+    let g:loop_function_int=g:loop_function_int % 4
+    AirlineTheme dark
 endfunction
 
 noremap <A-c> :call LoopColorSchemes()<cr>
@@ -530,6 +515,7 @@ function! InitVimGui()
 
         " the default theme doesn't work right with split windows & light
         " themes
+
         AirlineTheme pencil
 
         if has("win32")
