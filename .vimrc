@@ -28,9 +28,9 @@ endif
 Plugin 'gmarik/Vundle.vim'
 
 "==== Vim editing steroids
-Plugin 'Auto-Pairs'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'YankRing.vim'
+Plugin 'auto-pairs'
+Plugin 'lokaltog/vim-easymotion'
+Plugin 'yankring.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'junegunn/goyo.vim'
 Plugin 'justinmk/vim-gtfo'
@@ -45,17 +45,20 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-airline/vim-airline'
 
 "==== IDE stuff
+" Plugin 'Shougo/neocomplete.vim'
+" Plugin 'ervandew/supertab'
+" Plugin 'scrooloose/syntastic'
 Plugin 'a.vim'
-" Plugin 'abudden/taghighlight-automirror'
-Plugin 'ervandew/supertab'
+Plugin 'abudden/taghighlight-automirror'
 Plugin 'ctrlpvim/ctrlp.vim'
+" Plugin 'jeaye/color_coded'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'Shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
-" Plugin 'scrooloose/syntastic'
 Plugin 'tpope/vim-fugitive'
+Plugin 'valloric/YouCompleteMe'
+
 
 "==== Random lang support
 Plugin 'beyondmarc/glsl.vim'
@@ -350,6 +353,10 @@ let g:tagbar_sort = 0
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 3
+
+" YouCompleteMe
+let g:ycm_key_invoke_completion = '<C-S-space>'
+
 
 " Fugitive. Easy Git status
 noremap <leader>d :Gstatus<cr>
